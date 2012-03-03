@@ -1,1 +1,16 @@
 Hello Git
+
+
+git add *
+git commit -m "vmi"
+git push
+
+git diff
+
+git reset --hard
+
+git pull
+
+git status
+
+git log
