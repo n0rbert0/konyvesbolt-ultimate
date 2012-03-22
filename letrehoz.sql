@@ -1,0 +1,109 @@
+CREATE TABLE felhasznalo(
+F_ID NUMBER(13) PRIMARY KEY,
+f_nev VARCHAR2(100) NOT NULL,
+pass VARCHAR2(100) NOT NULL,
+e_mail VARCHAR2(100),
+teljesnev VARCHAR2(100),
+jog NUMBER(1)
+);
+
+CREATE TABLE konyv(
+isbn NUMBER(13) PRIMARY KEY,
+cim VARCHAR2(100) NOT NULL,
+ar INTEGER NOT NULL,
+db NUMBER(3) NOT NULL
+);
+
+CREATE TABLE kosar(
+isbn NUMBER(13) NOT NULL,
+F_ID NUMBER(12) NOT NULL,
+k_db NUMBER(3),
+ko_datum DATE,
+  CONSTRAINT fk_isbn
+  FOREIGN KEY (isbn)
+  REFERENCES konyv(isbn),
+  CONSTRAINT fk_f_id
+  FOREIGN KEY (F_ID)
+  REFERENCES felhasznalo(F_ID)
+);
+
+CREATE TABLE rendeles(
+R_ID NUMBER(13) PRIMARY KEY,
+F_ID NUMBER(13) NOT NULL,
+ki_datum DATE,
+o_ar INTEGER,
+  CONSTRAINT fk_felh_id
+  FOREIGN KEY (F_ID)
+  REFERENCES felhasznalo(F_ID)
+);
+
+CREATE TABLE tartozik(
+isbn NUMBER(13) NOT NULL,
+R_ID NUMBER(13) NOT NULL,
+T_DB NUMBER(3),
+  CONSTRAINT fk_isbnb
+  FOREIGN KEY (isbn)
+  REFERENCES konyv(isbn),
+  CONSTRAINT fk_r_id
+  FOREIGN KEY (R_ID)
+  REFERENCES rendeles(R_ID)
+);
+
+CREATE TABLE szerzo(
+isbn NUMBER(13) NOT NULL,
+szerzo VARCHAR2(100),
+  CONSTRAINT fk_isbnc
+  FOREIGN KEY (isbn)
+  REFERENCES konyv(isbn)
+);
+
+CREATE TABLE mufaj(
+isbn NUMBER(13) NOT NULL,
+mufaj VARCHAR2(100),
+  CONSTRAINT fk_isbnd
+  FOREIGN KEY (isbn)
+  REFERENCES konyv(isbn)
+);
+
+CREATE TABLE lakcim(
+F_ID NUMBER(13) NOT NULL,
+ir_szam NUMBER(4),
+varos VARCHAR2(100),
+utca VARCHAR2(100),
+hazszam NUMBER(4),
+  CONSTRAINT fk_f_idc
+  FOREIGN KEY (F_ID)
+  REFERENCES felhasznalo(F_ID)
+);
+
+CREATE TABLE r_cim(
+R_ID NUMBER(13) NOT NULL,
+ir_szam NUMBER(4),
+varos VARCHAR2(100),
+utca VARCHAR2(100),
+hazszam NUMBER(4),
+  CONSTRAINT fk_r_idb
+  FOREIGN KEY (R_ID)
+  REFERENCES rendeles(R_ID)
+);
+
+CREATE TABLE hozzaszolas(
+H_ID NUMBER(13) PRIMARY KEY,
+tartalom VARCHAR2(4000) NOT NULL
+);
+
+CREATE TABLE hozzaszol(
+H_ID NUMBER(13) NOT NULL,
+F_ID NUMBER(13) NOT NULL,
+isbn NUMBER(13) NOT NULL,
+ho_datum date,
+ CONSTRAINT fk_h_id
+  FOREIGN KEY (H_ID)
+  REFERENCES hozzaszolas(H_ID),
+  CONSTRAINT fk_f_id_a
+  FOREIGN KEY (F_ID)
+  REFERENCES felhasznalo(F_ID),
+  CONSTRAINT fk_isbn_a
+  FOREIGN KEY (isbn)
+  REFERENCES konyv(isbn)
+);
