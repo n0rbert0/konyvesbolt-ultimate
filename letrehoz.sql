@@ -4,7 +4,7 @@ f_nev VARCHAR2(100) NOT NULL,
 pass VARCHAR2(100) NOT NULL,
 e_mail VARCHAR2(100),
 teljesnev VARCHAR2(100),
-jog NUMBER(1)
+jog NUMBER(1) NOT NULL
 );
 
 CREATE TABLE konyv(
