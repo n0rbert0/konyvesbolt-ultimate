@@ -31,7 +31,7 @@ public class MainWindow extends JFrame{
     private void init() {
           
        TopList alma = new TopList();
-       add(alma,BorderLayout.CENTER); 
+       add(alma,BorderLayout.EAST); 
        
     }
 }
