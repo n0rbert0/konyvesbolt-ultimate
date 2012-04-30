@@ -34,5 +34,7 @@ public class MainWindow extends JFrame{
        add(alma, BorderLayout.EAST); 
        Login korte = new Login();
        add(korte, BorderLayout.NORTH);
+       KategoriakGUI cat = new KategoriakGUI();
+       add(cat, BorderLayout.WEST);
     }
 }
