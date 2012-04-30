@@ -13,7 +13,7 @@ public class Rendeles {
     private int R_ID;
     private String Varos, Utca;
     private int Hazszam, IrSzam;
-    private int RendeltKonyvCim; //ebből egyértelmű a könyv címe másik tábla alapján
+    private Konyv RendeltKonyv; //ebből egyértelmű a könyv címe másik tábla alapján
     private int RendeltKönyvDarabSzam;
     private int[] HozzaISBNek; //"rendelt darabszám" hosszú tömb, amiben az ISBN-ek vannak.
     private boolean Kiszallitott = false; //igaz, ha már kiszállításra került
@@ -40,8 +40,8 @@ public class Rendeles {
         return R_ID;
     }
 
-    public int getRendeltKonyvCim() {
-        return RendeltKonyvCim;
+    public Konyv getRendeltKonyvCim() {
+        return RendeltKonyv;
     }
 
     public int getRendeltKönyvDarabSzam() {
@@ -78,8 +78,8 @@ public class Rendeles {
         this.R_ID = R_ID;
     }
 
-    public void setRendeltKonyvCim(int RendeltKonyvCim) {
-        this.RendeltKonyvCim = RendeltKonyvCim;
+    public void setRendeltKonyv(Konyv RendeltKonyv) {
+        this.RendeltKonyv = RendeltKonyv;
     }
 
     public void setRendeltKönyvDarabSzam(int RendeltKönyvDarabSzam) {
@@ -93,6 +93,8 @@ public class Rendeles {
     public void setVaros(String Varos) {
         this.Varos = Varos;
     }
+
+    
     
     
     

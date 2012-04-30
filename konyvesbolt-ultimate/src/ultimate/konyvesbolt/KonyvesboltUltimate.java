@@ -22,6 +22,8 @@ public class KonyvesboltUltimate {
         // TODO code application logic here
         MainWindow ablak = new MainWindow();
         connect con = new connect();
+       System.out.println(con.Proba());
+       con.Proba();
     }
         
 }
