@@ -23,6 +23,16 @@ import javax.swing.border.LineBorder;
 public class TopList extends JPanel {
     
     public TopList() {
+        
+        JPanel fal = new JPanel();
+        fal.setPreferredSize(new Dimension(300,1000));
+        for(int i=0; i<6; i++)
+            fal.add(Lista());
+        add(fal);
+    }
+    
+    private JPanel Lista()
+    {    
         JPanel label = new JPanel(new BorderLayout());
         JButton gomb = new JButton();        
         gomb.add(LoadImage("101751F.gif",75,100));
@@ -30,13 +40,11 @@ public class TopList extends JPanel {
         label.setPreferredSize(new Dimension(300,100));
         label.add(gomb, BorderLayout.WEST);
         
-        JTextField zsamo = new JTextField("Alma");
-        label.add (zsamo, BorderLayout.EAST);
+        JTextArea text = new JTextArea("Királyok csatája" + "\n" + "George Martin");
+        text.setEnabled(false);
+        label.add (text, BorderLayout.CENTER);
         
-        //JOptionPane.showMessageDialog(null, "Szevasz Czene! ");
-        
-        
-        add(label);
+        return label;
     }
     
     private JLabel LoadImage(String name, int width, int height){
