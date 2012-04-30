@@ -20,10 +20,11 @@ public class KonyvesboltUltimate {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        MainWindow ablak = new MainWindow();
+       // MainWindow ablak = new MainWindow();
         connect con = new connect();
-       System.out.println(con.Proba());
-       con.Proba();
+       con.beszuras();
+       con.listazas();
+     
     }
         
 }
