@@ -17,7 +17,7 @@ import javax.swing.border.*;
 
 public class MainWindow extends JFrame{
     
-    public static String m_path = "C:\\Users\\lorda\\Documents\\NetBeansProjects\\konyvesbolt-ultimate\\";
+    public static String m_path = "C:\\Users\\Gere\\Documents\\NetBeansProjects\\konyvesbolt-ultimate\\";
     
     public MainWindow() {
         super("Könyvesbolt Ultimate");
