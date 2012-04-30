@@ -24,9 +24,17 @@ public class TopList extends JPanel {
     
     public TopList() {
         JPanel label = new JPanel(new BorderLayout());
+        JButton gomb = new JButton();        
+        gomb.add(LoadImage("101751F.gif",75,100));
         label.setBorder(LineBorder.createBlackLineBorder());
         label.setPreferredSize(new Dimension(300,100));
-        label.add(LoadImage("101751F.gif",65,100), BorderLayout.WEST);
+        label.add(gomb, BorderLayout.WEST);
+        
+        JTextField zsamo = new JTextField("Alma");
+        label.add (zsamo, BorderLayout.EAST);
+        
+        //JOptionPane.showMessageDialog(null, "Szevasz Czene! ");
+        
         
         add(label);
     }
