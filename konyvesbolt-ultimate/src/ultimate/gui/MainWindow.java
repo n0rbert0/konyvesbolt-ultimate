@@ -17,11 +17,11 @@ import javax.swing.border.*;
 
 public class MainWindow extends JFrame{
     
-    public static String m_path = "C:\\Users\\Gere\\Documents\\NetBeansProjects\\konyvesbolt-ultimate\\";
+    public static String m_path = "C:\\Users\\lorda\\Documents\\NetBeansProjects\\konyvesbolt-ultimate\\";
     
     public MainWindow() {
         super("Könyvesbolt Ultimate");
-        setSize(1150,700);
+        setSize(1200,730);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);        
         init();
@@ -31,7 +31,8 @@ public class MainWindow extends JFrame{
     private void init() {
           
        TopList alma = new TopList();
-       add(alma,BorderLayout.EAST); 
-       
+       add(alma, BorderLayout.EAST); 
+       Login korte = new Login();
+       add(korte, BorderLayout.NORTH);
     }
 }

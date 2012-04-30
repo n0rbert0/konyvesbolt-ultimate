@@ -37,7 +37,7 @@ public class TopList extends JPanel {
         JButton gomb = new JButton();        
         gomb.add(LoadImage("101751F.gif",75,100));
         label.setBorder(LineBorder.createBlackLineBorder());
-        label.setPreferredSize(new Dimension(300,100));
+        label.setPreferredSize(new Dimension(300,97));
         label.add(gomb, BorderLayout.WEST);
         
         JTextArea text = new JTextArea("Királyok csatája" + "\n" + "George Martin");
