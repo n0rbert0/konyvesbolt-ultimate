@@ -30,7 +30,7 @@ public class connect {
 
     try {
      conn = java.sql.DriverManager.getConnection(
-"jdbc:oracle:thin:root/root@localhost:1521:xe");
+"jdbc:oracle:thin:SYSTEM/root@localhost:1521:xe");
      }
      catch (Exception e) {
      System.out.println(e);

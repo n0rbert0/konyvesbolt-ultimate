@@ -4,6 +4,9 @@
  */
 package ultimate.konyvesbolt;
 
+import ultimate.sql.*;
+import ultimate.gui.*;
+
 /**
  *
  * @author lorda
@@ -17,6 +20,9 @@ public class KonyvesboltUltimate {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-              
+        MainWindow ablak = new MainWindow();
+        
     }
+        
 }
+
