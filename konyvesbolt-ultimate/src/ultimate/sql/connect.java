@@ -38,7 +38,7 @@ public class connect {
 		ResultSet rs = st.executeQuery("select * from hozzaszolas");
 			
 		while(rs.next()){
-                    System.out.print(rs.getString("h_id")+" ");
+                    System.out.print(rs.getString("h_id")+"  ");
                     System.out.println(rs.getString("tartalom"));
 		}
 	} catch (SQLException e) {
