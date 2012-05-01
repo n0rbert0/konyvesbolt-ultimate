@@ -11,6 +11,7 @@ import java.util.Map;
 import ultimate.konyvesbolt.Felhasznalo;
 import ultimate.konyvesbolt.Hozzaszolas;
 import ultimate.konyvesbolt.Konyv;
+import ultimate.konyvesbolt.Rendeles;
 
 /**
  *
@@ -20,7 +21,8 @@ public class DAO {
     
     Map<Integer, Hozzaszolas> hozzaszolas = new HashMap<Integer, Hozzaszolas>();
     Map<Integer, Konyv> konyv = new HashMap<Integer, Konyv>();
-    Map<Integer, Felhasznalo> felhasznalo = new HashMap<Integer, Felhasznalo>();    
+    Map<Integer, Felhasznalo> felhasznalo = new HashMap<Integer, Felhasznalo>();
+    Map<Integer, Rendeles> rendeles = new HashMap<Integer, Rendeles>();
     
     // SQL lekérdezések
     private static final String SQL_addHozzaszolas =
@@ -61,6 +63,18 @@ public class DAO {
 		"select ir_szam, varos, utca, hazszam from lakcim where f_id=?";
     private static final String SQL_maxFelhasznaloId =
 		"select max(f_id) AS max from felhasznalo";
+    private static final String SQL_addRendeles =
+		"insert into rendeles(r_id, f_id, datum, o_ar, isbn, db, kiszallitva) values " +
+		"(?,?,?,?,?,?,?)";
+    private static final String SQL_addR_cim =
+		"insert into r_cim(r_id, ir_szam, varos, utca, hazszam) values " +
+		"(?,?,?,?,?)";
+    private static final String SQL_getRendeles =
+		"select * from rendeles order by r_id";
+    private static final String SQL_getR_cim=
+		"select ir_szam, varos, utca, hazszam from r_cim where r_id=?";
+    private static final String SQL_maxRendelesId =
+		"select max(r_id) AS max from rendeles";
     
   String url = "jdbc:oracle:thin:@//localhost:1521/xe";
   
@@ -330,6 +344,116 @@ public class DAO {
                 int index = 1;
 
                 pst.setInt(index++, f_id);
+                
+                ResultSet rs = pst.executeQuery(); 
+                
+                if (rs.next()){
+                   //a lkacímnek több, mint 1 oszlopa van, ezért
+                   //egy itt döntöm el, hogy melyik kell pontosan
+                   switch(i){
+                       case 1:  return Integer.toString(rs.getInt("ir_szam")); 
+                       case 2:  return rs.getString("varos"); 
+                       case 3:  return rs.getString("utca");
+                       case 4:  return Integer.toString(rs.getInt("hazszam"));    
+                   }        
+                }        
+                    
+	} catch (SQLException e) {
+		System.err.println("Nem jött létre az SQL kapcsolat!");
+	} finally {
+		try {
+                    if(pst != null)
+        		pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+                }
+		try {
+                    if(conn != null)
+			conn.close();
+		} catch (SQLException e) {
+			System.err.println("Nem sikerült lezárni az SQL kapcsolatot!");
+		}
+	}
+    
+        return null;
+        
+  }
+  
+  //rendeles tabla lekerdezese
+  public Map<Integer, Rendeles> getRendeles(){
+      
+    Connection conn = null;
+    Statement st = null;
+    rendeles.clear();
+			
+	try {
+            try {
+        	conn = DriverManager.getConnection(url,"root","root");
+            } catch (SQLException e) {
+		System.err.println("Nem jött létre az SQL kapcsolat!");
+            }    
+		    
+		st = conn.createStatement();
+                ResultSet rs = st.executeQuery(SQL_getRendeles);    
+
+                        while(rs.next()){
+                            Rendeles r = new Rendeles();  
+                            r.setR_id(rs.getInt("r_id"));
+                            r.setF_id(rs.getInt("f_id"));
+                            r.setDatum(rs.getString("datum"));
+                            r.setAr(rs.getInt("o_ar"));
+                            r.setIsbn(rs.getInt("isbn"));
+                            r.setDb(rs.getInt("db"));
+                            if(rs.getInt("kiszallitva") == 1)
+                            r.setKiszalitva(true);
+                            else
+                            r.setKiszalitva(false);
+                            r.setIrSzam(Integer.parseInt(getR_cim(rs.getInt("r_id"),1)));
+                            r.setVaros(getR_cim(rs.getInt("r_id"),2));
+                            r.setUtca(getR_cim(rs.getInt("r_id"),3));
+                            r.setHazszam(Integer.parseInt(getR_cim(rs.getInt("r_id"),4)));
+
+                            rendeles.put(r.getR_id(), r);
+                        }
+                
+	} catch (SQLException e) {
+		System.err.println("Nem jött létre az SQL kapcsolat!");
+	} finally {
+		try {
+                    if(st != null)
+        		st.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+                }
+		try {
+                    if(conn != null)
+			conn.close();
+		} catch (SQLException e) {
+			System.err.println("Nem sikerült lezárni az SQL kapcsolatot!");
+		}
+	}
+    
+        return rendeles;
+        
+  }
+  
+  // mivel külön táblában van megvalósítva a lakcím, ezért ezt is le kell kérdezni
+  public String getR_cim(int r_id, int i){
+      
+    Connection conn = null;
+    PreparedStatement pst = null;
+			
+	try {
+            try {
+        	conn = DriverManager.getConnection(url,"root","root");
+            } catch (SQLException e) {
+		System.err.println("Nem jött létre az SQL kapcsolat!");
+            }    
+		    
+		pst = conn.prepareStatement(SQL_getR_cim);
+                int index = 1;
+
+                pst.setInt(index++, r_id);
                 
                 ResultSet rs = pst.executeQuery(); 
                 
@@ -642,6 +766,108 @@ public class DAO {
 	}
         return true;
     }
+   
+   public boolean addRendeles(Rendeles r) {
+
+    Connection conn = null;
+    PreparedStatement pst = null;
+	try {
+            try {
+        	conn = DriverManager.getConnection(url,"root","root");
+            } catch (SQLException e) {
+		System.err.println("Nem jött létre az SQL kapcsolat!");
+            }   
+            
+                //felhasznalo tabla feltoltese
+		pst = conn.prepareStatement(SQL_addRendeles);
+		int index = 1;
+                       
+                pst.setInt(index++, r.getR_id());
+                pst.setInt(index++, r.getF_id());
+                pst.setString(index++, aktIdo());
+                pst.setInt(index++, r.getAr());
+                pst.setInt(index++, r.getIsbn());
+                pst.setInt(index++, r.getDb());
+		
+                if(r.isKiszalitva()==true)
+                pst.setInt(index++, 1);
+                else
+                pst.setInt(index++, 0);    
+               
+                //mivel nem akarom külön metódust meghívni a
+                //r_cim tabla feltoltesere ezert itt csinalom
+                
+                //r_cim tabla feltoltese
+                addR_cim(r.getR_id(), r.getIrSzam(), r.getVaros(), r.getUtca(), r.getHazszam());
+                
+		pst.executeUpdate();
+                       
+	} catch (SQLException e) {
+                //System.err.println("SQL injekciós hiba");
+                //return false;
+	} finally {
+
+            try {
+		if(pst != null)
+                    pst.close();
+            } catch (SQLException e) {
+		e.printStackTrace();
+            }
+            try {
+		if(conn != null)
+		conn.close();
+            } catch (SQLException e) {
+		System.err.println("Nem sikerült lezárni az SQL kapcsolatot!");
+            }
+	}
+        return true;
+    }
+   
+   //r_cim tabla feltoltese, a addRendeles metodusba hivom meg
+   public boolean addR_cim(int r_id, int irSzam, String varos, String utca, int hazszam) {
+
+    Connection conn = null;
+    PreparedStatement pst = null;
+	try {
+            try {
+        	conn = DriverManager.getConnection(url,"root","root");
+            } catch (SQLException e) {
+		System.err.println("Nem jött létre az SQL kapcsolat!");
+            }   
+            
+                //felhasznalo tabla feltoltese
+		pst = conn.prepareStatement(SQL_addR_cim);
+                       
+		int index = 1;
+                       
+                pst.setInt(index++, r_id);
+		pst.setInt(index++, irSzam);
+                pst.setString(index++, varos);
+                pst.setString(index++, utca);
+                pst.setInt(index++, hazszam);
+                                
+		pst.executeUpdate();
+                       
+	} catch (SQLException e) {
+                //System.err.println("SQL injekciós hiba");
+                //return false;
+	} finally {
+
+            try {
+		if(pst != null)
+                    pst.close();
+            } catch (SQLException e) {
+		e.printStackTrace();
+            }
+            try {
+		if(conn != null)
+		conn.close();
+            } catch (SQLException e) {
+		System.err.println("Nem sikerült lezárni az SQL kapcsolatot!");
+            }
+	}
+        return true;
+    }
   
   //az autoincremet miatt kell ez a metodus
   // lekerdezi, hogy mi volt a legnagyobb sorszam
@@ -774,6 +1000,49 @@ public class DAO {
         return max;
   }
   
+  //az autoincremet miatt kell ez a metodus
+  // lekerdezi, hogy mi volt a legnagyobb sorszam
+  public int maxRendelesId(){
+    Connection conn = null;
+    PreparedStatement pst = null;
+    
+    int max = 0;
+			
+	try {
+            try {
+        	conn = DriverManager.getConnection(url,"root","root");
+            } catch (SQLException e) {
+		System.err.println("Nem jött létre az SQL kapcsolat!");
+            }    
+		
+		pst = conn.prepareStatement(SQL_maxRendelesId);
+                        
+		ResultSet rs = pst.executeQuery();
+                
+		if(rs.next()){
+                    max = rs.getInt("max");
+		}
+                
+	} catch (SQLException e) {
+		System.err.println("Nem jött létre az SQL kapcsolat!");
+	} finally {
+		try {
+                    if(pst != null)
+        		pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+                }
+		try {
+                    if(conn != null)
+			conn.close();
+		} catch (SQLException e) {
+			System.err.println("Nem sikerült lezárni az SQL kapcsolatot!");
+		}
+	}
+    
+        return max;
+  }
+  
   //----------teszteleshez-----------
   public void testHozzaszolas(String hsz){
       
@@ -828,6 +1097,30 @@ public class DAO {
             addFelhasznalo(f);
       
       String test = getFelhasznalo().toString();
+      System.out.println(test);
+      
+  }
+  
+   public void testRendeles(int f_id, int isbn, int db, int ar,
+           int irSzam, String varos, String utca, int hazszam, boolean kiszallitva){
+      
+          Rendeles r = new Rendeles();
+          
+           r.setR_id(maxRendelesId()+1);
+           r.setF_id(f_id);
+           r.setIsbn(isbn);
+           r.setDb(db);
+           r.setAr(ar);
+           r.setIrSzam(irSzam);
+           r.setVaros(varos);
+           r.setUtca(utca);
+           r.setHazszam(hazszam);
+           r.setKiszalitva(kiszallitva);
+            if(addRendeles(r) == false) System.err.println("Nem sikerült hozza adni a hozzaszolast, valoszinuleg mar letezik ilyen!");
+            else
+            addRendeles(r);
+      
+      String test = getRendeles().toString();
       System.out.println(test);
       
   }
