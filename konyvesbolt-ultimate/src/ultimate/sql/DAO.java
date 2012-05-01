@@ -52,7 +52,7 @@ public class DAO {
 		st = conn.createStatement();
                         
 		ResultSet rs = st.executeQuery(SQL_getHozzaszolas);
-			
+                
 		while(rs.next()){
                     Hozzaszolas h = new Hozzaszolas();
                     h.setH_id(rs.getInt("h_id"));
@@ -101,8 +101,8 @@ public class DAO {
 		pst.executeUpdate();
                        
 	} catch (SQLException e) {
-                System.err.println("SQL injekciós hiba");
-                return false;
+                //System.err.println("SQL injekciós hiba");
+                //return false;
 	} finally {
 		
             try {
@@ -122,10 +122,10 @@ public class DAO {
     }
   
   public void testHozzaszolas(){
-      for(int i = 1; i < 11; i++){
+      for(int i = 1; i < 21; i++){
           Hozzaszolas h = new Hozzaszolas();
           h.setH_id(i);
-          h.setTartalom("Teszt Elek");
+          h.setTartalom(i+". tesz hsz");
           if(addHozzaszolas(h) == false) System.err.println("Nem sikerült hozza adni a hozzaszolast, valoszinuleg mar letezik ilyen!");
           else
           addHozzaszolas(h);
