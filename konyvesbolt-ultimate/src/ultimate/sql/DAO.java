@@ -5,6 +5,7 @@
 package ultimate.sql;
 
 import java.sql.*;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import ultimate.konyvesbolt.Felhasznalo;
@@ -21,9 +22,10 @@ public class DAO {
     Map<Integer, Konyv> konyv = new HashMap<Integer, Konyv>();
     Map<Integer, Felhasznalo> felhasznalo = new HashMap<Integer, Felhasznalo>();    
     
+    // SQL lekérdezések
     private static final String SQL_addHozzaszolas =
-		"insert into Hozzaszolas(h_id, tartalom) values " +
-		"(?,?)";
+		"insert into Hozzaszolas(h_id, tartalom, ho_datum) values " +
+		"(?,?,?)";
     private static final String SQL_getHozzaszolas =
 		"select * from hozzaszolas order by h_id";
     
@@ -72,7 +74,8 @@ public class DAO {
     }
           
   }
-    
+  
+  // hozzászolások lekérdezéséhez
   public Map<Integer, Hozzaszolas> getHozzaszolas(){
       
     Connection conn = null;
@@ -94,6 +97,7 @@ public class DAO {
                     Hozzaszolas h = new Hozzaszolas();
                     h.setH_id(rs.getInt("h_id"));
                     h.setTartalom(rs.getString("tartalom"));
+                    h.setDate(rs.getString("ho_datum"));
                     
                     hozzaszolas.put(h.getH_id(), h);
 		}
@@ -118,6 +122,7 @@ public class DAO {
         
   }
   
+  // könyvek lekérdezéséhez
   public Map<Integer, Konyv> getKonyv(){
       
     Connection conn = null;
@@ -168,6 +173,7 @@ public class DAO {
         
   }
   
+  // mivel külön táblában van megvalósítva a műfaj, ezért ezt is le kell kérdezni
   public String getMufaj(int isbn){
       
     Connection conn = null;
@@ -210,6 +216,7 @@ public class DAO {
         
   }
   
+  // mivel külön táblában van megvalósítva a szerző, ezért ezt is le kell kérdezni
   public String getSzerzo(int isbn){
       
     Connection conn = null;
@@ -252,6 +259,7 @@ public class DAO {
         
   }
   
+  //felhasználó lekérdezéséhez
   public Map<Integer, Felhasznalo> getFelhasznalo(){
       
     Connection conn = null;
@@ -305,6 +313,7 @@ public class DAO {
         
   }
   
+  // mivel külön táblában van megvalósítva a lakcím, ezért ezt is le kell kérdezni
   public String getLakcim(int f_id, int i){
       
     Connection conn = null;
@@ -325,6 +334,8 @@ public class DAO {
                 ResultSet rs = pst.executeQuery(); 
                 
                 if (rs.next()){
+                   //a lkacímnek több, mint 1 oszlopa van, ezért
+                   //egy itt döntöm el, hogy melyik kell pontosan
                    switch(i){
                        case 1:  return Integer.toString(rs.getInt("ir_szam")); 
                        case 2:  return rs.getString("varos"); 
@@ -354,6 +365,7 @@ public class DAO {
         
   }
   
+  //hozzászólás felvétele az adatbázisba
   public boolean addHozzaszolas(Hozzaszolas h) {
       
     Connection conn = null;
@@ -370,6 +382,7 @@ public class DAO {
                        
                 pst.setInt(index++, h.getH_id());
 		pst.setString(index++, h.getTartalom());
+                pst.setString(index++, aktIdo());
 		
 		pst.executeUpdate();
                        
@@ -394,6 +407,7 @@ public class DAO {
         return true;
     }
   
+  //könyv felvétele az adatbázisba
   public boolean addKonyv(Konyv k) {
 
     Connection conn = null;
@@ -414,6 +428,10 @@ public class DAO {
 		pst.setString(index++, k.getCim());
                 pst.setInt(index++, k.getAr());
                 pst.setInt(index++, k.getDb());    
+                
+                //mivel nem akarom külön metódust meghívni a
+                //mufaj es a szerzo tabla feltoltesere ezert itt csinalom
+                
                 //mufaj tabla feltoltese
                 addMufaj(k.getMufaj(), k.getIsbn());
                 
@@ -442,6 +460,7 @@ public class DAO {
         return true;
     }
   
+  //műfaj felvétele az adatbázisba az addKonyv-on belul hivom meg
    public boolean addMufaj(String mufaj, int isbn) {
       
     Connection conn = null;
@@ -483,6 +502,7 @@ public class DAO {
         return true;
     }
    
+   //szerző felvétele az adatbázisba az addKonyv-on belul hivom meg
    public boolean addSzerzo(String szerzo, int isbn) {
       
     Connection conn = null;
@@ -502,9 +522,7 @@ public class DAO {
 		pst.setString(index++, szerzo);
 
 		pst.executeUpdate();
-                
-                
-                       
+       
 	} catch (SQLException e) {
                 //System.err.println("SQL injekciós hiba");
                 //return false;
@@ -526,6 +544,7 @@ public class DAO {
         return true;
     }
    
+   //felhasznalo felvetele az adatbazisba
    public boolean addFelhasznalo(Felhasznalo f) {
 
     Connection conn = null;
@@ -548,6 +567,9 @@ public class DAO {
                 pst.setString(index++, f.getEmail());
                 pst.setString(index++, f.getTeljesnev());
                 pst.setInt(index++, f.getJog());   
+                
+                //mivel nem akarom külön metódust meghívni a
+                //lakcim tabla feltoltesere ezert itt csinalom
                 
                 //lakcim tabla feltoltese
                 addLakcim(f.getF_id(), f.getIrSzam(), f.getVaros(), f.getUtca(), f.getHazszam());
@@ -575,6 +597,7 @@ public class DAO {
         return true;
     }
    
+   //lakcim feltoltese az adatbazisba, az addFelhasznalo-n belul hivom meg
    public boolean addLakcim(int f_id, int irSzam, String varos, String utca, int hazszam) {
 
     Connection conn = null;
@@ -620,6 +643,8 @@ public class DAO {
         return true;
     }
   
+  //az autoincremet miatt kell ez a metodus
+  // lekerdezi, hogy mi volt a legnagyobb sorszam
   public int maxHozzaszolasId(){
     Connection conn = null;
     PreparedStatement pst = null;
@@ -661,6 +686,10 @@ public class DAO {
         return max;
   }
   
+  //az autoincremet miatt kell ez a metodus
+  // lekerdezi, hogy mi volt a legnagyobb sorszam
+  //nincs minden konyvhoz kulon isbn, az azonos konyvek
+  //azonos isbn ala tartoznak
   public int maxKonyvIsbn(){
     Connection conn = null;
     PreparedStatement pst = null;
@@ -702,6 +731,8 @@ public class DAO {
         return max;
   }
   
+  //az autoincremet miatt kell ez a metodus
+  // lekerdezi, hogy mi volt a legnagyobb sorszam
   public int maxFelhasznaloId(){
     Connection conn = null;
     PreparedStatement pst = null;
@@ -743,6 +774,7 @@ public class DAO {
         return max;
   }
   
+  //----------teszteleshez-----------
   public void testHozzaszolas(String hsz){
       
           Hozzaszolas h = new Hozzaszolas();
@@ -798,6 +830,19 @@ public class DAO {
       String test = getFelhasznalo().toString();
       System.out.println(test);
       
+  }
+  
+  //aktualis rendszerido
+  
+  public String aktIdo(){
+        Calendar actDate = Calendar.getInstance();
+        String aktIdo = actDate.get(Calendar.YEAR) + "." +
+                        (actDate.get(Calendar.MONTH)+1) + "." +
+                         actDate.get(Calendar.DATE) + ", " + 
+                         actDate.get(Calendar.HOUR_OF_DAY) + ":" + 
+                         actDate.get(Calendar.MINUTE);
+        return aktIdo;      
+  
   }
   
 
