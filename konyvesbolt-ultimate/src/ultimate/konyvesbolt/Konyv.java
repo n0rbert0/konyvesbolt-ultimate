@@ -16,10 +16,13 @@ public class Konyv {
     private int isbn;
     private String mufaj;
     private int ar;     //ára
-    
-    
-    
+    private int db;
+
     //Getters: 
+    
+     public int getDb() {
+        return db;
+    }
 
     public int getAr() {
         return ar;
@@ -43,6 +46,10 @@ public class Konyv {
     
     //Setters: 
 
+    public void setDb(int db) {
+        this.db = db;
+    }
+    
     public void setAr(int ar) {
         this.ar = ar;
     }
@@ -62,6 +69,12 @@ public class Konyv {
     public void setSzerzo(String szerzo) {
         this.szerzo = szerzo;
     }
+
+    @Override
+    public String toString() {
+        return " {SZERZO=" + szerzo + ", CIM=" + cim + ", ISBN=" + isbn + ", MUFAJ=" + mufaj + ", AR=" + ar + ", DB=" + db +"}";
+    }
+
    
     
 }//class
