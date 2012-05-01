@@ -8,6 +8,10 @@ package ultimate.konyvesbolt;
 import ultimate.sql.*;
 import ultimate.gui.*;
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -23,13 +27,13 @@ public class KonyvesboltUltimate {
         
       BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
       DAO con = new DAO();
-      // MainWindow ablak = new MainWindow();
+      //MainWindow ablak = new MainWindow();
       
       int menu = 0;
       String param[];
               
       System.out.println("Mit szeretnel tesztelni?\n" + 
-              "1 - Hozzaszolas\n2 - Konyv\n3 - Felhaznalo");
+              "1 - Hozzaszolas\n2 - Konyv\n3 - Felhaznalo\n4 - Rendeles");
       menu = Integer.parseInt(br.readLine());
       
       // ---- konzolos "tesztkornyezet"
@@ -96,10 +100,38 @@ public class KonyvesboltUltimate {
                     param[7], Integer.parseInt(param[8]));
               break;
               
+           case 4:             
+                param = new String[9];
+              
+            System.out.println("f_id:");
+            param[0] = br.readLine();
+            System.out.println("idbn:");
+            param[1] = br.readLine();
+            System.out.println("db:");
+            param[2] = br.readLine();
+            System.out.println("ar:");
+            param[3] = br.readLine();
+            System.out.println("irszam:");
+            param[4] = br.readLine();
+            System.out.println("varos:");
+            param[5] = br.readLine(); 
+            System.out.println("utca:");
+            param[6] = br.readLine();
+            System.out.println("hazszam:");
+            param[7] = br.readLine();
+            System.out.println("kiszalitva (true/false):");
+            param[8] = br.readLine();
+            
+            con.testRendeles(Integer.parseInt(param[0]), Integer.parseInt(param[1]),
+                    Integer.parseInt(param[2]), Integer.parseInt(param[3]),
+                    Integer.parseInt(param[4]), param[5], param[6], 
+                    Integer.parseInt(param[7]), Boolean.parseBoolean(param[8]));
+            break;
+               
            default: 
                 System.out.println("Rossz menu");
                 break;
-         }
+         };
 
       }
         
