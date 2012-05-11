@@ -23,6 +23,7 @@ public class DAO {
     Map<Integer, Konyv> konyv = new HashMap<Integer, Konyv>();
     Map<Integer, Felhasznalo> felhasznalo = new HashMap<Integer, Felhasznalo>();
     Map<Integer, Rendeles> rendeles = new HashMap<Integer, Rendeles>();
+    Map<Integer, Konyv> existsKonyv = new HashMap<Integer, Konyv>();
     
     // SQL lekérdezések
     private static final String SQL_addHozzaszolas =
@@ -77,6 +78,10 @@ public class DAO {
 		"select max(r_id) AS max from rendeles";
     private static final String SQL_belepes = 
                 "select * from felhasznalo where f_nev=? AND pass=?";
+    private static final String SQL_existsKonyv = 
+                "select * from konyv,mufaj,szerzo " + ""
+                + "where konyv.isbn=mufaj.isbn AND konyv.isbn=szerzo.isbn AND "
+                + "(cim=? OR mufaj=? OR szerzo=?)";
     
   String url = "jdbc:oracle:thin:@//localhost:1521/xe";
   
@@ -1091,6 +1096,61 @@ public class DAO {
 	}
     
         return false;
+        
+  }
+  
+  public Map<Integer, Konyv> existsKonyv(String keres){
+      
+    Connection conn = null;
+    PreparedStatement pst = null;
+    existsKonyv.clear();
+			
+	try {
+            try {
+        	conn = DriverManager.getConnection(url,"root","root");
+            } catch (SQLException e) {
+		System.err.println("Nem jött létre az SQL kapcsolat!");
+            }    
+		    
+		pst = conn.prepareStatement(SQL_existsKonyv);
+                int index = 1;
+
+                pst.setString(index++, keres);
+                pst.setString(index++, keres);
+                pst.setString(index++, keres);
+
+                ResultSet rs = pst.executeQuery(); 
+                
+                while(rs.next()){
+                            Konyv k = new Konyv();  
+                            k.setIsbn(rs.getInt("isbn"));
+                            k.setCim(rs.getString("cim"));
+                            k.setAr(rs.getInt("ar"));
+                            k.setDb(rs.getInt("db"));
+                            k.setMufaj(rs.getString("mufaj"));
+                            k.setSzerzo(rs.getString("szerzo"));
+                             
+                            existsKonyv.put(k.getIsbn(), k);
+                        }       
+                    
+	} catch (SQLException e) {
+		System.err.println("Nem jött létre az SQL kapcsolat!");
+	} finally {
+		try {
+                    if(pst != null)
+        		pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+                }
+		try {
+                    if(conn != null)
+			conn.close();
+		} catch (SQLException e) {
+			System.err.println("Nem sikerült lezárni az SQL kapcsolatot!");
+		}
+	}
+    
+        return existsKonyv;
         
   }
   
