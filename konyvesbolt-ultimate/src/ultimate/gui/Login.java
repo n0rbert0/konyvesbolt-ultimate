@@ -10,11 +10,14 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import ultimate.konyvesbolt.Konyv;
 import ultimate.sql.DAO;
 
 /**
@@ -88,6 +91,19 @@ public class Login extends JPanel implements ActionListener{
             		    "Hiba",
             		    JOptionPane.ERROR_MESSAGE);
                 }
+            }
+        }
+        if(keres == e.getSource()){
+            if(!kereses.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null,
+            		    "Találtam " + dao.existsKonyv(kereses.getText()).size() + "db könyvet!\n" + dao.existsKonyv(kereses.getText()).toString() ,
+            		    "Információ",
+            		    JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(null,
+            		    "Nincs ilyen könyv!",
+            		    "Hiba",
+            		    JOptionPane.ERROR_MESSAGE);
             }
         }
     }
