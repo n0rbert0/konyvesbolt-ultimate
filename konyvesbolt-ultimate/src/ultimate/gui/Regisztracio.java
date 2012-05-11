@@ -57,7 +57,6 @@ public class Regisztracio extends JDialog implements ActionListener  {
         JPanel settingPanel = createSettingPanel();//A beállításokat tartalmazó panel gyártása
         JPanel buttonPanel = createButtonPanel();//A gombokat tartalmazó panel gyártása
         JPanel dialogPanel = createDialogPanel(settingPanel, buttonPanel); //Az előző két panelt egy panelre rakjuk 
-
         getContentPane().add(dialogPanel); //A dialogPanelt rárakjuk a dialógusra
         pack(); //A dialógus megfelelő méretének beállítása (a tartalmazott elemek alapján)
         setLocationRelativeTo(null); //A dialógust a BookShopGUI-hoz képest rajzolja ki
