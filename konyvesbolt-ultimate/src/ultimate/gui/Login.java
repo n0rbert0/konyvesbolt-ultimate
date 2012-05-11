@@ -11,39 +11,56 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import ultimate.sql.DAO;
 
 /**
  *
  * @author lorda
  */
 public class Login extends JPanel implements ActionListener{
+    
+    private DAO dao = new DAO();
+    
+    JTextField kereses;
+    JTextField login;
+    JTextField pass;
+    
     private JButton belepes;
-    private JButton regisztracio;
+    private JButton keres;
+    private JButton reg;
     
     Login()
     {
     JPanel fal = new JPanel(new BorderLayout());
     //fal.setBorder(LineBorder.createBlackLineBorder());
     fal.setPreferredSize(new Dimension(1150,35));
-    JTextField kereses = new JTextField("keresés");
+    kereses = new JTextField("keresés");
     kereses.setPreferredSize(new Dimension(500,30));
-    JButton keres = new JButton("Keres");
-    JTextField login = new JTextField("login");
+    
+    keres = new JButton("Keres");
+    keres.addActionListener(this);
+    
+    reg = new JButton("Regsiztráció");
+    reg.addActionListener(this);
+    
+    login = new JTextField("login");
     login.setPreferredSize(new Dimension(150,30));
-    JTextField pass = new JTextField("pass");
+    pass = new JTextField("pass");
     pass.setPreferredSize(new Dimension(150,30));
+    
     belepes = new JButton("Belépés");
     belepes.addActionListener(this);
-
     
     JPanel falacska = new JPanel(new BorderLayout());
     JPanel falacska2 = new JPanel(new BorderLayout());
     
     falacska.add(kereses, BorderLayout.WEST);
     falacska.add(keres, BorderLayout.CENTER);
+    falacska.add(reg,BorderLayout.EAST);
     
     falacska2.add(login, BorderLayout.WEST);
     falacska2.add(pass, BorderLayout.CENTER);    
@@ -55,8 +72,23 @@ public class Login extends JPanel implements ActionListener{
     
     public void actionPerformed(ActionEvent e) {
     
-        if(belepes == e.getSource()) {
+        if(reg == e.getSource()) {
           new Regisztracio();
+        }
+        if(belepes == e.getSource()){
+            if((!pass.getText().isEmpty()) && (!login.getText().isEmpty()) ){
+    		if(dao.belepes(login.getText(), pass.getText())){
+                    JOptionPane.showMessageDialog(null,
+            		    "Sikeres bejelentkezés!",
+            		    "Információ",
+            		    JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(null,
+            		    "Hibás felhasználónév vagy jelszó!",
+            		    "Hiba",
+            		    JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
     }
 }
