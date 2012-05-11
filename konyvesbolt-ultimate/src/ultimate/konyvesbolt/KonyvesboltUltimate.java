@@ -27,7 +27,8 @@ public class KonyvesboltUltimate {
         
       BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
       DAO con = new DAO();
-      //MainWindow ablak = new MainWindow();
+      MainWindow ablak = new MainWindow();
+      ablak.startGUI();
       
       int menu = 0;
       String param[];
