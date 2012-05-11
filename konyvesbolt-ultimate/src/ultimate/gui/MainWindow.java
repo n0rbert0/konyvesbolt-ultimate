@@ -17,24 +17,41 @@ import javax.swing.border.*;
 
 public class MainWindow extends JFrame{
     
-    public static String m_path = "C:\\Users\\lorda\\Documents\\NetBeansProjects\\konyvesbolt-ultimate\\";
+    public static String m_path = "D:\\NetBeansProjects\\konyvesbolt-ultimate\\";
     
-    public MainWindow() {
-        super("Könyvesbolt Ultimate");
-        setSize(1200,730);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);        
-        init();
-        setVisible(true);
+    private JFrame window;
+    
+    public void startGUI() {
+    	javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
     }
     
+     private void createAndShowGUI() {
+    	window = new JFrame("Könyvesbolt Ultimate");
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        window.setSize(1200,730);
+        window.setResizable(false);
+        window.setVisible(true);
+        window.setLocationRelativeTo(null);  
+        init();
+    }
+     
     private void init() {
           
-       TopList alma = new TopList();
-       add(alma, BorderLayout.EAST); 
-       Login korte = new Login();
-       add(korte, BorderLayout.NORTH);
+       TopList toplist = new TopList();
+       window.add(toplist, BorderLayout.EAST); 
+       Login login = new Login();
+       window.add(login, BorderLayout.NORTH);
        KategoriakGUI cat = new KategoriakGUI();
-       add(cat, BorderLayout.WEST);
+       window.add(cat, BorderLayout.WEST);
     }
+    
+    public JFrame getWindow() {
+		return window;
+	}
+     
 }
