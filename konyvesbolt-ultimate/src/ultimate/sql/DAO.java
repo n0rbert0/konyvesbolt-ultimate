@@ -75,6 +75,8 @@ public class DAO {
 		"select ir_szam, varos, utca, hazszam from r_cim where r_id=?";
     private static final String SQL_maxRendelesId =
 		"select max(r_id) AS max from rendeles";
+    private static final String SQL_belepes = 
+                "select * from felhasznalo where f_nev=? AND pass=?";
     
   String url = "jdbc:oracle:thin:@//localhost:1521/xe";
   
@@ -1041,6 +1043,55 @@ public class DAO {
 	}
     
         return max;
+  }
+  
+  
+  public boolean belepes(String f_nev, String pass){
+      
+    Connection conn = null;
+    PreparedStatement pst = null;
+			
+	try {
+            try {
+        	conn = DriverManager.getConnection(url,"root","root");
+            } catch (SQLException e) {
+		System.err.println("Nem jött létre az SQL kapcsolat!");
+            }    
+		    
+		pst = conn.prepareStatement(SQL_belepes);
+                String[] adatok = new String[2];
+                int index = 1;
+
+                pst.setString(index++, f_nev);
+                pst.setString(index++, pass);
+                
+                ResultSet rs = pst.executeQuery(); 
+                
+                if (rs.next()){
+                       adatok[0] = rs.getString("f_nev"); 
+                       adatok[1] = rs.getString("pass");
+                       return true;
+                }       
+                    
+	} catch (SQLException e) {
+		System.err.println("Nem jött létre az SQL kapcsolat!");
+	} finally {
+		try {
+                    if(pst != null)
+        		pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+                }
+		try {
+                    if(conn != null)
+			conn.close();
+		} catch (SQLException e) {
+			System.err.println("Nem sikerült lezárni az SQL kapcsolatot!");
+		}
+	}
+    
+        return false;
+        
   }
   
   //----------teszteleshez-----------
