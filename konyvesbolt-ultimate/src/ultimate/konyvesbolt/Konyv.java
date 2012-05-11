@@ -72,7 +72,7 @@ public class Konyv {
 
     @Override
     public String toString() {
-        return " {SZERZO=" + szerzo + ", CIM=" + cim + ", ISBN=" + isbn + ", MUFAJ=" + mufaj + ", AR=" + ar + ", DB=" + db +"}";
+        return " {SZERZO=" + szerzo + ", CIM=" + cim + ", ISBN=" + isbn + ", MUFAJ=" + mufaj + ", AR=" + ar + ", DB=" + db +"}\n";
     }
 
    
