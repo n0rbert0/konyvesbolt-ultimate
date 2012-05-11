@@ -94,9 +94,9 @@ public class Login extends JPanel implements ActionListener{
             }
         }
         if(keres == e.getSource()){
-            if(!kereses.getText().isEmpty()){
+            if((!kereses.getText().isEmpty()) && (dao.existsKonyv(kereses.getText()).size() != 0) ){
                 JOptionPane.showMessageDialog(null,
-            		    "Találtam " + dao.existsKonyv(kereses.getText()).size() + "db könyvet!\n" + dao.existsKonyv(kereses.getText()).toString() ,
+            		    dao.existsKonyv(kereses.getText()).size() + "db könyvet találtam!\n" + dao.existsKonyv(kereses.getText()).toString() ,
             		    "Információ",
             		    JOptionPane.INFORMATION_MESSAGE);
             }else{
