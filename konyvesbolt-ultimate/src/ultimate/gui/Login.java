@@ -8,6 +8,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -17,7 +19,9 @@ import javax.swing.border.LineBorder;
  *
  * @author lorda
  */
-public class Login extends JPanel{
+public class Login extends JPanel implements ActionListener{
+    private JButton belepes;
+    private JButton regisztracio;
     
     Login()
     {
@@ -31,7 +35,9 @@ public class Login extends JPanel{
     login.setPreferredSize(new Dimension(150,30));
     JTextField pass = new JTextField("pass");
     pass.setPreferredSize(new Dimension(150,30));
-    JButton belepes = new JButton("Belépés");
+    belepes = new JButton("Belépés");
+    belepes.addActionListener(this);
+
     
     JPanel falacska = new JPanel(new BorderLayout());
     JPanel falacska2 = new JPanel(new BorderLayout());
@@ -45,5 +51,12 @@ public class Login extends JPanel{
     fal.add(falacska, BorderLayout.WEST);
     fal.add(falacska2, BorderLayout.EAST);
     add(fal);
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+    
+        if(belepes == e.getSource()) {
+          new Regisztracio();
+        }
     }
 }
