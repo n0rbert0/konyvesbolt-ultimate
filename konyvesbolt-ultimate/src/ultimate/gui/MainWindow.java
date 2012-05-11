@@ -46,8 +46,8 @@ public class MainWindow extends JFrame{
        window.add(toplist, BorderLayout.EAST); 
        Login login = new Login();
        window.add(login, BorderLayout.NORTH);
-       KategoriakGUI cat = new KategoriakGUI();
-       window.add(cat, BorderLayout.WEST);
+       KategoriakGUI kat = new KategoriakGUI();
+       window.add(kat, BorderLayout.WEST);
     }
     
     public JFrame getWindow() {
