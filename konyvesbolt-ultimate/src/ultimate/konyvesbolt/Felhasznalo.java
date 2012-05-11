@@ -15,12 +15,12 @@ public class Felhasznalo {
     private String pass;
     private String email;
     private String teljesnev;
-    private int jog;
+    private int jog = 2;
     
-    private int irSzam;
+    private int irSzam = -1;
     private String varos;
     private String utca;
-    private int hazszam;
+    private int hazszam = -1;
 
     public String getEmail() {
         return email;
