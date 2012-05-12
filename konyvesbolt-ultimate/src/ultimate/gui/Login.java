@@ -12,10 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
 import ultimate.konyvesbolt.Konyv;
 import ultimate.sql.DAO;
@@ -30,7 +27,7 @@ public class Login extends JPanel implements ActionListener{
     
     JTextField kereses;
     JTextField login;
-    JTextField pass;
+    JPasswordField pass;
     
     private JButton belepes;
     private JButton keres;
@@ -52,7 +49,7 @@ public class Login extends JPanel implements ActionListener{
     
     login = new JTextField("login");
     login.setPreferredSize(new Dimension(150,30));
-    pass = new JTextField("pass");
+    pass = new JPasswordField();
     pass.setPreferredSize(new Dimension(150,30));
     
     belepes = new JButton("Belépés");
