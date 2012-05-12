@@ -44,7 +44,7 @@ public class Login extends JPanel implements ActionListener{
     keres = new JButton("Keres");
     keres.addActionListener(this);
     
-    reg = new JButton("Regsiztráció");
+    reg = new JButton("Regisztráció");
     reg.addActionListener(this);
     
     login = new JTextField("login");
