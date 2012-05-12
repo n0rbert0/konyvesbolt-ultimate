@@ -1135,6 +1135,8 @@ public class DAO {
                             k.setDb(rs.getInt("db"));
                             k.setMufaj(rs.getString("mufaj"));
                             k.setSzerzo(rs.getString("szerzo"));
+                            k.setKep(rs.getString("kep"));
+                            k.setLeiras(rs.getString("leiras"));
                              
                             existsKonyv.put(k.getIsbn(), k);
                         }       
