@@ -30,8 +30,6 @@ import ultimate.sql.DAO;
  */
 
 public class Regisztracio extends JDialog implements ActionListener  {
-    
-	private static final long serialVersionUID = 2072911996817368496L;
 
 	private DAO dao = new DAO();
 	
@@ -50,7 +48,7 @@ public class Regisztracio extends JDialog implements ActionListener  {
     public Regisztracio() {
         //proba
         super();
-        this.setTitle("Regisztracio");
+        this.setTitle("Regisztráció");
         
         JPanel settingPanel = createSettingPanel();//A beállításokat tartalmazó panel gyártása
         JPanel buttonPanel = createButtonPanel();//A gombokat tartalmazó panel gyártása
@@ -91,7 +89,7 @@ public class Regisztracio extends JDialog implements ActionListener  {
     	szemelyesPanel.add(new JLabel("  Email:"));
     	szemelyesPanel.add(email_textfield);
     	
-    	szemelyesPanel.add(new JLabel("  Teljes név"));
+    	szemelyesPanel.add(new JLabel("  Teljes név:"));
     	szemelyesPanel.add(tn_textfield);
         
         return szemelyesPanel;
@@ -153,7 +151,7 @@ public class Regisztracio extends JDialog implements ActionListener  {
         	//Ha nem adtak meg nevet akkor egy hibaüzenetet írunk ki egy error dialogra(JOptionPane.ERROR_MESSAGE)
     		if(fNev_textfield.getText().isEmpty()){
     			JOptionPane.showMessageDialog(null,
-            		    "Felhasználó név megadása köelező!",
+            		    "Felhasználó név megadása kötelező!",
             		    "Hiba",
             		    JOptionPane.ERROR_MESSAGE);
     			return;
@@ -207,7 +205,9 @@ public class Regisztracio extends JDialog implements ActionListener  {
             		    JOptionPane.ERROR_MESSAGE);
     			return;
     		}
-        	Felhasznalo f = new Felhasznalo();
+        	/*Valamiért így nem tölti fel csak a felhasználó táblát :S
+                 * 
+                 * Felhasznalo f = new Felhasznalo();
         	f.setF_id(dao.maxFelhasznaloId()+1);
                 f.setF_nev(fNev_textfield.getText());
                 f.setPass(pass_textfield.getText());
@@ -217,10 +217,14 @@ public class Regisztracio extends JDialog implements ActionListener  {
                 f.setVaros(varos_textfield.getText());
                 f.setUtca(utca_textfield.getText());
                 f.setHazszam((Integer)hazSzam.getValue());
-        	//Ha az addCustomer false-t ad vissza akkor egy hibaüzenetet írunk ki egy error dialogra(JOptionPane.ERROR_MESSAGE)
-             if(!dao.addFelhasznalo(f))
+                ;*/
+        	
+             if(!dao.testFelhasznalo(fNev_textfield.getText(), pass_textfield.getText(),
+                     email_textfield.getText(), tn_textfield.getText(), 2,
+                     (Integer)irSzam.getValue(), varos_textfield.getText(), utca_textfield.getText(),
+                     (Integer)hazSzam.getValue()))
             	JOptionPane.showMessageDialog(null,
-            		    "Varatlan hiba tortent az adatbazis feltoltese kozben!",
+            		    "Váratlan hiba történt az adatbázis feltöltése közben!",
             		    "Hiba",
             		    JOptionPane.ERROR_MESSAGE);
             else {
@@ -264,10 +268,15 @@ public class Regisztracio extends JDialog implements ActionListener  {
 								//Elküldjük az üzenetet a property-ben megadott szerver segítségével
 								t.sendMessage(msg, msg.getAllRecipients());
 								t.close();
-								System.out.println("E-mail elkuldve: " + email_textfield.getText());
-							} catch (NoSuchProviderException e) {
-								// Konzolon meg fog jelenni a stack trace, ha nem sikerül a küldés
-								e.printStackTrace();
+								JOptionPane.showMessageDialog(null,
+                                                                    "Regisztrációs email elküldve!",
+                                                                    "Információ",
+                                                                    JOptionPane.INFORMATION_MESSAGE);
+                        				} catch (NoSuchProviderException e) {
+								JOptionPane.showMessageDialog(null,
+                                                                    "Regisztrációs email-t nem sikerült elküldeni!\n Valószínűleg rossz email címet adtál meg.",
+                                                                    "Hiba",
+                                                                    JOptionPane.ERROR_MESSAGE);
 							} catch (MessagingException e) {
 								// Konzolon meg fog jelenni a stack trace, ha nem sikerül a küldés
 								e.printStackTrace();				 
