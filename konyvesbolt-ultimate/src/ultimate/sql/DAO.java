@@ -47,9 +47,9 @@ public class DAO {
     private static final String SQL_getKonyv =
 		"select * from konyv order by isbn";
     private static final String SQL_getMufaj =
-		"select mufaj from mufaj where isbn=?";  
+		"select * from mufaj where isbn=?";  
     private static final String SQL_getSzerzo =
-		"select szerzo from szerzo where isbn=?";
+		"select * from szerzo where isbn=?";
     private static final String SQL_maxKonyvIsbn =
 		"select max(isbn) AS max from konyv";
     private static final String SQL_addFelhasznalo =
@@ -166,8 +166,8 @@ public class DAO {
                             k.setCim(rs.getString("cim"));
                             k.setAr(rs.getInt("ar"));
                             k.setDb(rs.getInt("db"));
-                            k.setMufaj(getMufaj(rs.getInt("isbn")));
-                            k.setSzerzo(getSzerzo(rs.getInt("isbn")));
+                            k.setMufaj(getMufaj(k.getIsbn()));
+                            k.setSzerzo(getSzerzo(k.getIsbn()));
                             k.setKep(rs.getString("kep"));
                             k.setLeiras(rs.getString("leiras"));
                             

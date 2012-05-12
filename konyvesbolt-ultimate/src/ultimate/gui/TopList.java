@@ -8,13 +8,18 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import ultimate.konyvesbolt.Konyv;
+import ultimate.sql.DAO;
 
 /**
  *
@@ -52,13 +57,30 @@ public class TopList extends JPanel {
     protected JPanel Lista()
     {    
         JPanel label = new JPanel(new BorderLayout());
-        JButton gomb = new JButton();        
-        gomb.add(LoadImage("101751F.gif",kepx,kepy));
+        JButton gomb = new JButton();
+        Random generator = new Random();       
+        Map<Integer, Konyv> konyv;
+        DAO dao = new DAO();
+        
+        konyv = dao.getKonyv();
+        
+        int random = generator.nextInt( dao.maxKonyvIsbn() ) + 1;
+             
+        String kep;
+        String cim;
+        String szerzo;
+        
+        kep = konyv.get(random).getKep();
+        cim = konyv.get(random).getCim();
+        szerzo = konyv.get(random).getSzerzo();
+        
+        gomb.add(LoadImage(kep,kepx,kepy));
         label.setBorder(LineBorder.createBlackLineBorder());
         label.setPreferredSize(new Dimension(keretx,kerety));
         label.add(gomb, BorderLayout.WEST);
         
-        JTextArea text = new JTextArea("Királyok csatája" + "\n" + "George Martin");
+        JTextArea text = new JTextArea(cim + "\n"
+                + szerzo);
         text.setEnabled(false);
         label.add (text, BorderLayout.CENTER);
         
