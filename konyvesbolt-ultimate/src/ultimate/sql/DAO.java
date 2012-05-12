@@ -176,7 +176,8 @@ public class DAO {
                         }
                 
                 
-	} catch (SQLException e) {
+	} catch (Exception e) {
+                getKonyv();
 		System.err.println("Nem jött létre az SQL kapcsolat!");
 	} finally {
 		try {
