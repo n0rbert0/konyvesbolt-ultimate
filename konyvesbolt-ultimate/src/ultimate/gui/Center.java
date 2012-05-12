@@ -30,9 +30,10 @@ public class Center extends JPanel{
         GridLayout layout = new GridLayout(2,2);
         setLayout(layout);
         konyvleiras elso = new konyvleiras();
-        JButton masodik = new JButton();
-        JButton harmadik = new JButton();
-        JButton negyedik = new JButton();
+        konyvleiras masodik = new konyvleiras();
+        konyvleiras harmadik = new konyvleiras();
+        konyvleiras negyedik = new konyvleiras();
+
         add(elso);
         add(masodik);
         add(harmadik);
@@ -44,26 +45,34 @@ public class Center extends JPanel{
         
         konyvleiras(){
 
-            init(1, new Dimension(350,310), 75, 100, 350, 150);
+            init(1, new Dimension(350,310), 120, 150, 350, 150);
                      
         }
        
         @Override
         protected JPanel Lista()
         {
-            setLayout(new GridLayout(2,1));
+            JPanel alaplabel = new JPanel(new GridLayout(2,1));
+ 
             JPanel label = new JPanel(new BorderLayout());
             JButton gomb = new JButton();        
             gomb.add(LoadImage("101751F.gif",kepx,kepy));
-            label.setBorder(LineBorder.createBlackLineBorder());
+
             label.setPreferredSize(new Dimension(keretx,kerety));
             label.add(gomb, BorderLayout.WEST);
         
             JTextArea text = new JTextArea("Királyok csatája" + "\n" + "George Martin");
             text.setEnabled(false);
             label.add (text, BorderLayout.CENTER);
+            
+            JTextArea leiras = new JTextArea("ewrztrewt43265rewgwezr35zhehgwhj2tewzhweht\newrthzwteh\n");
+            leiras.setEnabled(false);
+            
+            alaplabel.add(label);
+            alaplabel.add(leiras);
+            
         
-        return label;
+        return alaplabel;
         
         }
     
