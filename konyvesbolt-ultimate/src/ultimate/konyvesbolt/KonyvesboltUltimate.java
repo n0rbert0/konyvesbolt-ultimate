@@ -29,6 +29,8 @@ public class KonyvesboltUltimate {
       DAO con = new DAO();
       MainWindow ablak = new MainWindow();
       ablak.startGUI();
+      new KonyvFelvetel();
+      
       int menu = 0;
       String param[];
               
