@@ -17,6 +17,8 @@ public class Konyv {
     private String mufaj;
     private int ar;     //ára
     private int db;
+    private String kep;
+    private String leiras;
 
     //Getters: 
     
@@ -42,6 +44,14 @@ public class Konyv {
 
     public String getSzerzo() {
         return szerzo;
+    }
+
+    public String getKep() {
+        return kep;
+    }
+
+    public String getLeiras() {
+        return leiras;
     }
     
     //Setters: 
@@ -70,9 +80,17 @@ public class Konyv {
         this.szerzo = szerzo;
     }
 
+    public void setKep(String kep) {
+        this.kep = kep;
+    }
+
+    public void setLeiras(String leiras) {
+        this.leiras = leiras;
+    }
+
     @Override
     public String toString() {
-        return " {SZERZO=" + szerzo + ", CIM=" + cim + ", ISBN=" + isbn + ", MUFAJ=" + mufaj + ", AR=" + ar + ", DB=" + db +"}\n";
+        return " {SZERZO=" + szerzo + ", CIM=" + cim + ", ISBN=" + isbn + ", MUFAJ=" + mufaj + ", AR=" + ar + ", DB=" + db + ", KEP=" + kep + ", LEIRAS=" + leiras +"}\n";
     }
 
    

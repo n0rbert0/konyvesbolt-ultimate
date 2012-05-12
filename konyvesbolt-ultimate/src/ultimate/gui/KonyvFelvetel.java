@@ -24,6 +24,9 @@ public class KonyvFelvetel extends JDialog implements ActionListener {
 	private JTextField szerzo_textfield = new JTextField();
 	private JTextField cim_textfield = new JTextField();
         private JTextField mufaj_textfield = new JTextField();
+        private JTextField kep_textfield = new JTextField();
+        private JTextField leiras_textfield = new JTextField();
+        
         private JSpinner ar = new JSpinner();
         private JSpinner db = new JSpinner();
 
@@ -47,7 +50,7 @@ public class KonyvFelvetel extends JDialog implements ActionListener {
     
     private JPanel createSettingPanel(){
         JPanel settingPanel = new JPanel();
-        settingPanel.setLayout(new GridLayout(6,1));
+        settingPanel.setLayout(new GridLayout(8,1));
         
         settingPanel.add(new JLabel("  Szerző:"));
     	settingPanel.add(szerzo_textfield);
@@ -63,6 +66,12 @@ public class KonyvFelvetel extends JDialog implements ActionListener {
         
         settingPanel.add(new JLabel("  Darabszám:"));
         settingPanel.add(db);
+        
+        settingPanel.add(new JLabel("  Kép:"));
+        settingPanel.add(kep_textfield);
+        
+        settingPanel.add(new JLabel("  Leírás:"));
+        settingPanel.add(leiras_textfield);
 
     	return settingPanel;
     }
@@ -117,16 +126,16 @@ public class KonyvFelvetel extends JDialog implements ActionListener {
             		    JOptionPane.ERROR_MESSAGE);
     			return;
     		}
-                if(ar.getValue() == null){
+                if(kep_textfield.getText().isEmpty()){
     			JOptionPane.showMessageDialog(null,
-            		    "Irányítószám megadása kötelező!",
+            		    "Kép megadása kötelező!",
             		    "Hiba",
             		    JOptionPane.ERROR_MESSAGE);
     			return;
     		}
-                if(db.getValue() == null){
+                if(leiras_textfield.getText().isEmpty()){
     			JOptionPane.showMessageDialog(null,
-            		    "Irányítószám megadása kötelező!",
+            		    "Leírás megadása kötelező!",
             		    "Hiba",
             		    JOptionPane.ERROR_MESSAGE);
     			return;
@@ -142,7 +151,8 @@ public class KonyvFelvetel extends JDialog implements ActionListener {
                 k.setAr((Integer)ar.getValue());
                 k.setDb((Integer)db.getValue());*/
              if(!dao.testKonyv(cim_textfield.getText(), (Integer)ar.getValue(),
-                     (Integer)db.getValue(), mufaj_textfield.getText(), szerzo_textfield.getText()))
+                     (Integer)db.getValue(), mufaj_textfield.getText(), szerzo_textfield.getText(),
+                     kep_textfield.getText(), leiras_textfield.getText()))
             	JOptionPane.showMessageDialog(null,
             		    "Váratlan hiba történt az adatbázis feltöltése közben!",
             		    "Hiba",

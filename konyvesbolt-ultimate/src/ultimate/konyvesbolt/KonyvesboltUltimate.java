@@ -29,7 +29,7 @@ public class KonyvesboltUltimate {
       DAO con = new DAO();
       MainWindow ablak = new MainWindow();
       ablak.startGUI();
-     // new KonyvFelvetel();
+     new KonyvFelvetel();
       
       int menu = 0;
       String param[];
@@ -70,8 +70,8 @@ public class KonyvesboltUltimate {
             System.out.println("Szerzo:");
             param[4] = br.readLine();
             
-            con.testKonyv(param[0], Integer.parseInt(param[1]),
-                    Integer.parseInt(param[2]),param[3],param[4]);
+            //con.testKonyv(param[0], Integer.parseInt(param[1]),
+              //      Integer.parseInt(param[2]),param[3],param[4]);
             break;
               
           case 3:

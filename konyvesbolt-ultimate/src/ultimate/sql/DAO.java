@@ -36,8 +36,8 @@ public class DAO {
 		"select max(h_id) AS max from hozzaszolas";
     
     private static final String SQL_addKonyv =
-		"insert into Konyv(isbn, cim, ar, db) values " +
-		"(?,?,?,?)";
+		"insert into Konyv(isbn, cim, ar, db, kep, leiras) values " +
+		"(?,?,?,?,?,?)";
     private static final String SQL_addMufaj =
 		"insert into mufaj(isbn, mufaj) values " +
 		"(?,?)";
@@ -168,6 +168,8 @@ public class DAO {
                             k.setDb(rs.getInt("db"));
                             k.setMufaj(getMufaj(rs.getInt("isbn")));
                             k.setSzerzo(getSzerzo(rs.getInt("isbn")));
+                            k.setKep(rs.getString("kep"));
+                            k.setLeiras(rs.getString("leiras"));
                             
                             konyv.put(k.getIsbn(), k);
                         }
@@ -565,9 +567,12 @@ public class DAO {
                 
                 //mufaj tabla feltoltese
                 addMufaj(k.getMufaj(), k.getIsbn());
-                
                 //szerzo tabla feltoltese
                 addSzerzo(k.getSzerzo(), k.getIsbn());  
+                
+                pst.setString(index++, k.getKep());
+                pst.setString(index++, k.getLeiras());
+                
 		pst.executeUpdate();
                        
 	} catch (SQLException e) {
@@ -1170,7 +1175,7 @@ public class DAO {
       
   }
   
-  public boolean testKonyv(String cim, int ar, int db, String mufaj, String szerzo){
+  public boolean testKonyv(String cim, int ar, int db, String mufaj, String szerzo, String kep, String leiras){
       
           Konyv k = new Konyv();
           
@@ -1180,6 +1185,8 @@ public class DAO {
             k.setDb(db);
             k.setMufaj(mufaj);
             k.setSzerzo(szerzo);
+            k.setKep(kep);
+            k.setLeiras(leiras);
             if(addKonyv(k) == false) return false;// System.err.println("Nem sikerült hozza adni a könyvet, valoszinuleg mar letezik ilyen!");
             else{
             addKonyv(k);
