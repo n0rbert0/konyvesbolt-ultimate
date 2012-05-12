@@ -22,22 +22,40 @@ import javax.swing.border.LineBorder;
  */
 public class TopList extends JPanel {
     
-    public TopList() {
+    protected int m_db;
+    protected Dimension meret;
+    protected int kepx, kepy;
+    protected int keretx, kerety;
         
-        JPanel fal = new JPanel();
-        fal.setPreferredSize(new Dimension(300,1000));
-        for(int i=0; i<6; i++)
-            fal.add(Lista());
-        add(fal);
+    public TopList() {
+         init(6, new Dimension(300,1000), 75, 100, 300, 97);   
+            
     }
     
-    private JPanel Lista()
+    public void init(int a, Dimension b, int c, int d, int e, int f)
+    {
+        m_db = a;
+        meret = b;
+        kepx = c;
+        kepy = d;
+        keretx = e;
+        kerety = f;
+        removeAll();            
+        JPanel fal = new JPanel();        
+        fal.setPreferredSize(meret);
+        for(int i=0; i<m_db; i++)
+        fal.add(Lista());
+        add(fal);
+            
+    }
+    
+    protected JPanel Lista()
     {    
         JPanel label = new JPanel(new BorderLayout());
         JButton gomb = new JButton();        
-        gomb.add(LoadImage("101751F.gif",75,100));
+        gomb.add(LoadImage("101751F.gif",kepx,kepy));
         label.setBorder(LineBorder.createBlackLineBorder());
-        label.setPreferredSize(new Dimension(300,97));
+        label.setPreferredSize(new Dimension(keretx,kerety));
         label.add(gomb, BorderLayout.WEST);
         
         JTextArea text = new JTextArea("Királyok csatája" + "\n" + "George Martin");
@@ -47,7 +65,7 @@ public class TopList extends JPanel {
         return label;
     }
     
-    private JLabel LoadImage(String name, int width, int height){
+    protected JLabel LoadImage(String name, int width, int height){
         Image image = null;
         
         try {
@@ -64,7 +82,7 @@ public class TopList extends JPanel {
         return label;
     }   
     
-    private static BufferedImage resizeImage(final Image image, int width, int height) {
+    protected static BufferedImage resizeImage(final Image image, int width, int height) {
         final BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         final Graphics2D graphics2D = bufferedImage.createGraphics();
         graphics2D.setComposite(AlphaComposite.Src);

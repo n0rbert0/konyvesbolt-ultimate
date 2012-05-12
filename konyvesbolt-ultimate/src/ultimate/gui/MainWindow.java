@@ -17,12 +17,13 @@ import javax.swing.border.*;
 
 public class MainWindow extends JFrame{
     
-    public static String m_path = "D:\\NetBeansProjects\\konyvesbolt-ultimate\\";
+    public static String m_path = "C:\\Users\\lorda\\Documents\\NetBeansProjects\\konyvesbolt-ultimate\\";
     
     private JFrame window;
     
     public void startGUI() {
     	javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 createAndShowGUI();
             }
@@ -48,6 +49,8 @@ public class MainWindow extends JFrame{
        window.add(login, BorderLayout.NORTH);
        KategoriakGUI kat = new KategoriakGUI();
        window.add(kat, BorderLayout.WEST);
+       Center cent = new Center();
+       window.add(cent, BorderLayout.CENTER);
     }
     
     public JFrame getWindow() {
