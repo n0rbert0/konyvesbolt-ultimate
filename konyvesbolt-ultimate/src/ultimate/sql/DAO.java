@@ -162,15 +162,16 @@ public class DAO {
 
                         while(rs.next()){
                             Konyv k = new Konyv();  
-                            k.setIsbn(rs.getInt("isbn"));
+                            int isbn = rs.getInt("isbn");
+                            k.setIsbn(isbn);
                             k.setCim(rs.getString("cim"));
                             k.setAr(rs.getInt("ar"));
                             k.setDb(rs.getInt("db"));
-                            k.setMufaj(getMufaj(k.getIsbn()));
-                            k.setSzerzo(getSzerzo(k.getIsbn()));
+                            k.setMufaj(getMufaj(isbn));
+                            k.setSzerzo(getSzerzo(isbn));
                             k.setKep(rs.getString("kep"));
                             k.setLeiras(rs.getString("leiras"));
-                            
+
                             konyv.put(k.getIsbn(), k);
                         }
                 

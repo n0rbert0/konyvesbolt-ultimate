@@ -18,6 +18,7 @@ import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -205,6 +206,13 @@ public class Regisztracio extends JDialog implements ActionListener  {
             		    JOptionPane.ERROR_MESSAGE);
     			return;
     		}
+                if(!isValidEmailAddress(email_textfield.getText())){
+                    JOptionPane.showMessageDialog(null,
+            		    "Valós email címet adj meg!",
+            		    "Hiba",
+            		    JOptionPane.ERROR_MESSAGE);
+    			return;
+                }
         	/*Valamiért így nem tölti fel csak a felhasználó táblát :S
                  * 
                  * Felhasznalo f = new Felhasznalo();
@@ -292,6 +300,17 @@ public class Regisztracio extends JDialog implements ActionListener  {
         }
         else if(cancel == e.getSource())
             setVisible(false);
-    }	  
+    }	
+  
+        public static boolean isValidEmailAddress(String email) {
+            boolean result = true;
+            try {
+                InternetAddress emailAddr = new InternetAddress(email);
+                emailAddr.validate();
+            } catch (AddressException ex) {
+                result = false;
+            }
+                 return result;
+            }
     
 }
