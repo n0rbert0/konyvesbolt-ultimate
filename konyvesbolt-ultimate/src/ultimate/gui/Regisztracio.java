@@ -4,9 +4,7 @@
  */
 package ultimate.gui;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -37,13 +35,13 @@ public class Regisztracio extends JDialog implements ActionListener  {
 
 	private DAO dao = new DAO();
 	
-	private JTextField fNev_textfield = new JTextField(50);
-	private JTextField pass_textfield = new JTextField(50);
-        private JTextField email_textfield = new JTextField(50);
-        private JTextField tn_textfield = new JTextField(50);
+	private JTextField fNev_textfield = new JTextField();
+	private JPasswordField pass_textfield = new JPasswordField();
+        private JTextField email_textfield = new JTextField();
+        private JTextField tn_textfield = new JTextField();
         private JSpinner irSzam = new JSpinner();
-        private JTextField varos_textfield = new JTextField(50);
-        private JTextField utca_textfield = new JTextField(50);
+        private JTextField varos_textfield = new JTextField();
+        private JTextField utca_textfield = new JTextField();
         private JSpinner hazSzam = new JSpinner();
 
 	private JButton ok = new JButton("Ok");
@@ -59,41 +57,71 @@ public class Regisztracio extends JDialog implements ActionListener  {
         JPanel dialogPanel = createDialogPanel(settingPanel, buttonPanel); //Az előző két panelt egy panelre rakjuk 
         getContentPane().add(dialogPanel); //A dialogPanelt rárakjuk a dialógusra
         pack(); //A dialógus megfelelő méretének beállítása (a tartalmazott elemek alapján)
+        setSize(400,450);
         setLocationRelativeTo(null); //A dialógust a BookShopGUI-hoz képest rajzolja ki
         setVisible(true);//Dialogus megjelenítése
     }
     
     private JPanel createSettingPanel(){
         JPanel settingPanel = new JPanel();
-        //A panel elrendezése mátrix, 4 sor és 2 oszlop, a cellak egyforma meretuek
-        settingPanel.setLayout(new GridLayout(8,2));
+        settingPanel.setLayout(new GridLayout(2,1));
+        
+        settingPanel.add(createSzemelyesAdatok());
+        settingPanel.add(createSzallitasiAdatok());
 
-    	settingPanel.add(new JLabel("Felhasználó név:"));
-    	settingPanel.add(fNev_textfield);
-    	
-    	settingPanel.add(new JLabel("Jelszó:"));
-    	settingPanel.add(pass_textfield);
-    	
-    	settingPanel.add(new JLabel("Email:"));
-    	settingPanel.add(email_textfield);
-    	
-    	settingPanel.add(new JLabel("Teljes név"));
-    	settingPanel.add(tn_textfield);
-        
-        settingPanel.add(new JLabel("Irányítószám:"));
-        settingPanel.add(irSzam);
-        
-        settingPanel.add(new JLabel("Város"));
-    	settingPanel.add(varos_textfield);
-        
-        settingPanel.add(new JLabel("Utca"));
-    	settingPanel.add(utca_textfield);
-        
-        settingPanel.add(new JLabel("Házszám"));
-        settingPanel.add(hazSzam);
-    	
     	return settingPanel;
     }
+    
+     private JPanel createSzemelyesAdatok(){ 
+
+        JPanel szemelyesPanel = new JPanel();
+        szemelyesPanel.setLayout(new GridLayout(7,2));
+        
+        szemelyesPanel.add(new JLabel("Személyes adatok"));
+        szemelyesPanel.add(new JLabel(""));
+        
+        szemelyesPanel.add(new JSeparator());
+        szemelyesPanel.add(new JSeparator());
+        szemelyesPanel.add(new JLabel("  Felhasználó név:"));
+    	szemelyesPanel.add(fNev_textfield);
+    	
+    	szemelyesPanel.add(new JLabel("  Jelszó:"));
+    	szemelyesPanel.add(pass_textfield);
+    	
+    	szemelyesPanel.add(new JLabel("  Email:"));
+    	szemelyesPanel.add(email_textfield);
+    	
+    	szemelyesPanel.add(new JLabel("  Teljes név"));
+    	szemelyesPanel.add(tn_textfield);
+        
+        return szemelyesPanel;
+     }
+     
+     private JPanel createSzallitasiAdatok(){
+        JPanel szallitasiAdatok = new JPanel();
+        szallitasiAdatok.setLayout(new GridLayout(7,2));
+        
+        szallitasiAdatok.add(new JLabel("Szallítási adatok"));
+        szallitasiAdatok.add(new JLabel(""));
+        
+        szallitasiAdatok.add(new JSeparator());
+        szallitasiAdatok.add(new JSeparator());
+        
+        szallitasiAdatok.add(new JLabel("  Irányítószám:"));
+        szallitasiAdatok.add(irSzam);
+        
+        szallitasiAdatok.add(new JLabel("  Város"));
+    	szallitasiAdatok.add(varos_textfield);
+        
+        szallitasiAdatok.add(new JLabel("  Utca"));
+    	szallitasiAdatok.add(utca_textfield);
+        
+        szallitasiAdatok.add(new JLabel("  Házszám"));
+        szallitasiAdatok.add(hazSzam);
+
+        return szallitasiAdatok;
+     }
+     
     
     private JPanel createButtonPanel(){
     	JPanel buttonPanel = new JPanel();
