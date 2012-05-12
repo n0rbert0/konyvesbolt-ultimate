@@ -1170,7 +1170,7 @@ public class DAO {
       
   }
   
-  public void testKonyv(String cim, int ar, int db, String mufaj, String szerzo){
+  public boolean testKonyv(String cim, int ar, int db, String mufaj, String szerzo){
       
           Konyv k = new Konyv();
           
@@ -1180,16 +1180,18 @@ public class DAO {
             k.setDb(db);
             k.setMufaj(mufaj);
             k.setSzerzo(szerzo);
-            if(addKonyv(k) == false) System.err.println("Nem sikerült hozza adni a hozzaszolast, valoszinuleg mar letezik ilyen!");
-            else
+            if(addKonyv(k) == false) return false;// System.err.println("Nem sikerült hozza adni a könyvet, valoszinuleg mar letezik ilyen!");
+            else{
             addKonyv(k);
+            return true;
+            }
       
-      String test = getKonyv().toString();
+     /* String test = getKonyv().toString();
       System.out.println(test);
-      
+      */
   }
   
-  public void testFelhasznalo(String f_nev, String pass, String email, String teljesnev, int jog, int irszam, String varos, String utca, int hazszam){
+  public boolean testFelhasznalo(String f_nev, String pass, String email, String teljesnev, int jog, int irszam, String varos, String utca, int hazszam){
       
           Felhasznalo f = new Felhasznalo();
           
@@ -1203,12 +1205,14 @@ public class DAO {
            f.setVaros(varos);
            f.setUtca(utca);
            f.setHazszam(hazszam);
-            if(addFelhasznalo(f) == false) System.err.println("Nem sikerült hozza adni a hozzaszolast, valoszinuleg mar letezik ilyen!");
-            else
+            if(addFelhasznalo(f) == false) return false; //System.err.println("Nem sikerült hozza adni a felhasználót, valoszinuleg mar letezik ilyen!");
+            else{
             addFelhasznalo(f);
+            return true;
+                    }
       
-      String test = getFelhasznalo().toString();
-      System.out.println(test);
+      //String test = getFelhasznalo().toString();
+      //System.out.println(test);
       
   }
   
