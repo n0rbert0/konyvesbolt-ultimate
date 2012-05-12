@@ -48,8 +48,8 @@ public class Regisztracio extends JDialog implements ActionListener  {
         private JButton cancel = new JButton("Cancel");
 
     public Regisztracio() {
+        //proba
         super();
-
         this.setTitle("Regisztracio");
         
         JPanel settingPanel = createSettingPanel();//A beállításokat tartalmazó panel gyártása
