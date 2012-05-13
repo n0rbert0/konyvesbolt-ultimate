@@ -88,6 +88,7 @@ public class Vasarlo extends javax.swing.JPanel {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
+        setMinimumSize(new java.awt.Dimension(800, 600));
         setPreferredSize(new java.awt.Dimension(800, 600));
 
         beallitGomb.setText("Beállítások");
@@ -311,7 +312,7 @@ public class Vasarlo extends javax.swing.JPanel {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addContainerGap(18, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(kereses)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -455,40 +456,9 @@ private void feltoltes(){
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton beallitGomb;
-    private java.awt.Button button1;
-    private java.awt.Button button10;
-    private java.awt.Button button11;
-    private java.awt.Button button12;
-    private java.awt.Button button13;
-    private java.awt.Button button14;
-    private java.awt.Button button15;
-    private java.awt.Button button16;
-    private java.awt.Button button17;
-    private java.awt.Button button18;
-    private java.awt.Button button19;
-    private java.awt.Button button2;
-    private java.awt.Button button20;
-    private java.awt.Button button21;
-    private java.awt.Button button22;
-    private java.awt.Button button23;
-    private java.awt.Button button24;
-    private java.awt.Button button25;
-    private java.awt.Button button26;
-    private java.awt.Button button27;
-    private java.awt.Button button28;
-    private java.awt.Button button29;
-    private java.awt.Button button3;
-    private java.awt.Button button30;
-    private java.awt.Button button31;
-    private java.awt.Button button32;
-    private java.awt.Button button33;
-    private java.awt.Button button34;
-    private java.awt.Button button35;
-    private java.awt.Button button36;
     private java.awt.Button button37;
     private java.awt.Button button38;
     private java.awt.Button button39;
-    private java.awt.Button button4;
     private java.awt.Button button40;
     private java.awt.Button button41;
     private java.awt.Button button42;
@@ -498,21 +468,13 @@ private void feltoltes(){
     private java.awt.Button button46;
     private java.awt.Button button47;
     private java.awt.Button button48;
-    private java.awt.Button button5;
-    private java.awt.Button button6;
-    private java.awt.Button button7;
-    private java.awt.Button button8;
-    private java.awt.Button button9;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
@@ -530,9 +492,6 @@ private void feltoltes(){
     private javax.swing.JTextField kereses;
     private javax.swing.JButton keresgomb;
     private javax.swing.JButton kilep;
-    private java.awt.Label label1;
-    private java.awt.Label label2;
-    private java.awt.Label label3;
     private java.awt.Label label4;
     private javax.swing.JLabel udvozlo;
     // End of variables declaration//GEN-END:variables
