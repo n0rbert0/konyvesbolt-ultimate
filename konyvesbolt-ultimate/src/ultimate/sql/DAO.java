@@ -81,7 +81,7 @@ public class DAO {
     private static final String SQL_existsKonyv = 
                 "select * from konyv,mufaj,szerzo " + ""
                 + "where konyv.isbn=mufaj.isbn AND konyv.isbn=szerzo.isbn AND "
-                + "(cim=? OR mufaj=? OR szerzo=?)";
+                + "(cim LIKE ? OR mufaj LIKE ? OR szerzo LIKE ?)";
     
   String url = "jdbc:oracle:thin:@//localhost:1521/xe";
   
@@ -1111,7 +1111,7 @@ public class DAO {
     Connection conn = null;
     PreparedStatement pst = null;
     existsKonyv.clear();
-			
+    keres="%"+keres+"%";
 	try {
             try {
         	conn = DriverManager.getConnection(url,"root","root");

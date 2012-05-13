@@ -20,10 +20,13 @@ import ultimate.sql.DAO;
 public class KonyvFelvetel extends JDialog implements ActionListener {
 
 	private DAO dao = new DAO();
+        private String[] mufajok = {"akció","irodalom","történelem","ifjúsági",
+                                    "informatika","hobbi","képregény","asztrológia",
+                                    "műszaki","sport","tankönyv","vallási"};
 	
 	private JTextField szerzo_textfield = new JTextField();
 	private JTextField cim_textfield = new JTextField();
-        private JTextField mufaj_textfield = new JTextField();
+        private JComboBox mufaj = new JComboBox(mufajok);
         private JTextField kep_textfield = new JTextField();
         private JTextField leiras_textfield = new JTextField();
         
@@ -59,8 +62,8 @@ public class KonyvFelvetel extends JDialog implements ActionListener {
     	settingPanel.add(cim_textfield);
     		
     	settingPanel.add(new JLabel("  Műfaj:"));
-    	settingPanel.add(mufaj_textfield);
-        
+    	settingPanel.add(mufaj);
+
         settingPanel.add(new JLabel("  Ár:"));
         settingPanel.add(ar);
         
@@ -119,7 +122,7 @@ public class KonyvFelvetel extends JDialog implements ActionListener {
             		    JOptionPane.ERROR_MESSAGE);
     			return;
     		}
-                if(mufaj_textfield.getText().isEmpty()){
+                if(mufaj.getSelectedItem().toString().isEmpty()){
     			JOptionPane.showMessageDialog(null,
             		    "Add meg a könyv műfaját!",
             		    "Hiba",
@@ -151,7 +154,7 @@ public class KonyvFelvetel extends JDialog implements ActionListener {
                 k.setAr((Integer)ar.getValue());
                 k.setDb((Integer)db.getValue());*/
              if(!dao.testKonyv(cim_textfield.getText(), (Integer)ar.getValue(),
-                     (Integer)db.getValue(), mufaj_textfield.getText(), szerzo_textfield.getText(),
+                     (Integer)db.getValue(), mufaj.getSelectedItem().toString(), szerzo_textfield.getText(),
                      kep_textfield.getText(), leiras_textfield.getText()))
             	JOptionPane.showMessageDialog(null,
             		    "Váratlan hiba történt az adatbázis feltöltése közben!",

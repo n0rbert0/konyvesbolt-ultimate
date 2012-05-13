@@ -36,6 +36,9 @@ public class KonyvesboltUltimate {
       foablak.setPreferredSize(new Dimension(800,600));
       foablak.setMinimumSize(new Dimension(800,600));
       foablak.setVisible(true);
+      
+      /*MainWindow main = new MainWindow();
+      main.startGUI();*/
      
       
       int menu = 0;
