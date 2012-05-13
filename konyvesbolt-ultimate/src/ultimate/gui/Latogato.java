@@ -4,10 +4,14 @@
  */
 package ultimate.gui;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import ultimate.konyvesbolt.Konyv;
 import ultimate.sql.DAO;
 
 /**
@@ -24,7 +28,8 @@ public class Latogato extends javax.swing.JPanel {
     
     public Latogato(JFrame foablak2) {
         foablak = foablak2;
-        initComponents();        
+        initComponents(); 
+        feltoltes();
     }
     
    // public Latogato(){this.setVisible(true); initComponents();}
@@ -377,7 +382,80 @@ public class Latogato extends javax.swing.JPanel {
           new Regisztracio();
         }
     }//GEN-LAST:event_reggombActionPerformed
-
+private void feltoltes(){
+        Map<Integer, Konyv> konyv;
+        DAO dao = new DAO();
+        Random generator = new Random();
+        Map<Integer, String> kep = new HashMap<Integer, String>();
+        Map<Integer, String> cim = new HashMap<Integer, String>();
+        Map<Integer, String> szerzo = new HashMap<Integer, String>();
+        Map<Integer, String> leiras = new HashMap<Integer, String>();
+        konyv = dao.getKonyv();
+        
+        int random = generator.nextInt( dao.maxKonyvIsbn() ) + 1;
+        System.out.println(random);
+        int i = 1;
+        
+        kep.put(i,konyv.get(random).getKep());
+        cim.put(i,konyv.get(random).getCim());
+        szerzo.put(i,konyv.get(random).getSzerzo());
+        leiras.put(i,konyv.get(random).getLeiras());
+        
+        jButton1.setText(szerzo.get(i) + " - " + cim.get(i));
+        jTextArea1.setText(leiras.get(i));
+        
+        i++;
+        random = generator.nextInt( dao.maxKonyvIsbn() ) + 1;
+        kep.put(i,konyv.get(random).getKep());
+        cim.put(i,konyv.get(random).getCim());
+        szerzo.put(i,konyv.get(random).getSzerzo());
+        leiras.put(i,konyv.get(random).getLeiras());
+        
+        jButton2.setText(szerzo.get(i) + " - " + cim.get(i));
+        jTextArea2.setText(leiras.get(i));
+        
+        i++;
+        random = generator.nextInt( dao.maxKonyvIsbn() ) + 1;
+        kep.put(i,konyv.get(random).getKep());
+        cim.put(i,konyv.get(random).getCim());
+        szerzo.put(i,konyv.get(random).getSzerzo());
+        leiras.put(i,konyv.get(random).getLeiras());
+        
+        jButton3.setText(szerzo.get(i) + " - " + cim.get(i));
+        jTextArea3.setText(leiras.get(i));
+        
+        i++;
+        random = generator.nextInt( dao.maxKonyvIsbn() ) + 1;
+        kep.put(i,konyv.get(random).getKep());
+        cim.put(i,konyv.get(random).getCim());
+        szerzo.put(i,konyv.get(random).getSzerzo());
+        leiras.put(i,konyv.get(random).getLeiras());
+        
+        jButton4.setText(szerzo.get(i) + " - " + cim.get(i));
+        jTextArea4.setText(leiras.get(i));
+        
+        i++;
+        random = generator.nextInt( dao.maxKonyvIsbn() ) + 1;
+        kep.put(i,konyv.get(random).getKep());
+        cim.put(i,konyv.get(random).getCim());
+        szerzo.put(i,konyv.get(random).getSzerzo());
+        leiras.put(i,konyv.get(random).getLeiras());
+        
+        jButton5.setText(szerzo.get(i) + " - " + cim.get(i));
+        jTextArea5.setText(leiras.get(i));
+        
+        i++;
+        random = generator.nextInt( dao.maxKonyvIsbn() ) + 1;
+        kep.put(i,konyv.get(random).getKep());
+        cim.put(i,konyv.get(random).getCim());
+        szerzo.put(i,konyv.get(random).getSzerzo());
+        leiras.put(i,konyv.get(random).getLeiras());
+        
+        jButton6.setText(szerzo.get(i) + " - " + cim.get(i));
+        jTextArea6.setText(leiras.get(i));
+        
+        
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button button1;
     private java.awt.Button button10;
