@@ -332,8 +332,8 @@ public class Latogato extends javax.swing.JPanel {
                    dao.belepes(felhasz.getText(), pass.getText()).getJog() == 2){                    
                     setVisible(false);                    
                     foablak.add(new Vasarlo(dao.belepes(felhasz.getText(), pass.getText()),foablak, this));
-                    felhasz.setText(" ");
-                    pass.setText(" ");
+                    felhasz.setText("Felhasználónév");
+                    pass.setText("jPasswordField1");
                     JOptionPane.showMessageDialog(null,
             		    "Sikeres bejelentkezés!",
             		    "Információ",
