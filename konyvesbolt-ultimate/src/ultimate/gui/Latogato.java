@@ -329,9 +329,11 @@ public class Latogato extends javax.swing.JPanel {
         // TODO add your handling code here:
         if((!pass.getText().isEmpty()) && (!felhasz.getText().isEmpty()) ){
     		if(dao.belepes(felhasz.getText(), pass.getText()) != null &&
-                   dao.belepes(felhasz.getText(), pass.getText()).getJog() == 2){
-                    setVisible(false);
-                    foablak.add(new Vasarlo(dao.belepes(felhasz.getText(), pass.getText())));
+                   dao.belepes(felhasz.getText(), pass.getText()).getJog() == 2){                    
+                    setVisible(false);                    
+                    foablak.add(new Vasarlo(dao.belepes(felhasz.getText(), pass.getText()),foablak, this));
+                    felhasz.setText(" ");
+                    pass.setText(" ");
                     JOptionPane.showMessageDialog(null,
             		    "Sikeres bejelentkezés!",
             		    "Információ",

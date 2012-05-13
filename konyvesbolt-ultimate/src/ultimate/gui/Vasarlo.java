@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import ultimate.konyvesbolt.Felhasznalo;
 import ultimate.sql.DAO;
 
@@ -22,9 +23,13 @@ public class Vasarlo extends javax.swing.JPanel {
      * Creates new form Vasarlo
      */
     Felhasznalo f;
+    JFrame foablak;
+    JPanel latogat;
     private DAO dao = new DAO();
-    public Vasarlo(Felhasznalo f) {
+    public Vasarlo(Felhasznalo f, JFrame foablak, Latogato latogat) {
         this.f=f;
+        this.foablak = foablak;
+        this.latogat = latogat;
         initComponents();
         udvozlo.setText("Üdvözöllek, " + f.getTeljesnev());
     }
@@ -358,6 +363,11 @@ public class Vasarlo extends javax.swing.JPanel {
 
     private void kilepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kilepActionPerformed
         // TODO add your handling code here:
+        f = null;
+        setVisible(false);
+        latogat.setVisible(true);
+                
+        
     }//GEN-LAST:event_kilepActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
