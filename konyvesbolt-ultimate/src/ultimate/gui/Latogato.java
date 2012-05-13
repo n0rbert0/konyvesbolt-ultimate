@@ -391,9 +391,7 @@ private void feltoltes(){
         Map<Integer, String> szerzo = new HashMap<Integer, String>();
         Map<Integer, String> leiras = new HashMap<Integer, String>();
         konyv = dao.getKonyv();
-        
         int random = generator.nextInt( dao.maxKonyvIsbn() ) + 1;
-        System.out.println(random);
         int i = 1;
         
         kep.put(i,konyv.get(random).getKep());

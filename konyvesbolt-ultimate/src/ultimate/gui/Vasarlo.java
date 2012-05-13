@@ -385,7 +385,6 @@ private void feltoltes(){
         konyv = dao.getKonyv();
         
         int random = generator.nextInt( dao.maxKonyvIsbn() ) + 1;
-        System.out.println(random);
         int i = 1;
         
         kep.put(i,konyv.get(random).getKep());
