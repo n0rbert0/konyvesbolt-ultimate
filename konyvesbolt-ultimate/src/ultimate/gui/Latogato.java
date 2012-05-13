@@ -99,29 +99,30 @@ public class Latogato extends javax.swing.JPanel {
         label1.setAlignment(java.awt.Label.CENTER);
         label1.setText("Kategoriák");
 
-        button1.setLabel("button1");
+        button1.setLabel("Akció");
 
-        button2.setLabel("button2");
+        button2.setLabel("Irodalom");
 
-        button3.setLabel("button3");
+        button3.setLabel("Történelem");
 
-        button4.setLabel("button4");
+        button4.setLabel("Ifjúsági");
+        button4.setName("");
 
-        button5.setLabel("button5");
+        button5.setLabel("Informatika");
 
-        button6.setLabel("button6");
+        button6.setLabel("Hobbi");
 
-        button7.setLabel("button7");
+        button7.setLabel("Képregény");
 
-        button8.setLabel("button8");
+        button8.setLabel("Asztrológia");
 
-        button9.setLabel("button9");
+        button9.setLabel("Műszaki");
 
-        button10.setLabel("button10");
+        button10.setLabel("Sport");
 
-        button11.setLabel("button11");
+        button11.setLabel("Tankönyv");
 
-        button12.setLabel("button12");
+        button12.setLabel("Vallási");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

@@ -188,62 +188,63 @@
         </Component>
         <Component class="java.awt.Button" name="button1">
           <Properties>
-            <Property name="label" type="java.lang.String" value="button1"/>
+            <Property name="label" type="java.lang.String" value="Akci&#xf3;"/>
           </Properties>
         </Component>
         <Component class="java.awt.Button" name="button2">
           <Properties>
-            <Property name="label" type="java.lang.String" value="button2"/>
+            <Property name="label" type="java.lang.String" value="Irodalom"/>
           </Properties>
         </Component>
         <Component class="java.awt.Button" name="button3">
           <Properties>
-            <Property name="label" type="java.lang.String" value="button3"/>
+            <Property name="label" type="java.lang.String" value="T&#xf6;rt&#xe9;nelem"/>
           </Properties>
         </Component>
         <Component class="java.awt.Button" name="button4">
           <Properties>
-            <Property name="label" type="java.lang.String" value="button4"/>
+            <Property name="label" type="java.lang.String" value="Ifj&#xfa;s&#xe1;gi"/>
+            <Property name="name" type="java.lang.String" value=""/>
           </Properties>
         </Component>
         <Component class="java.awt.Button" name="button5">
           <Properties>
-            <Property name="label" type="java.lang.String" value="button5"/>
+            <Property name="label" type="java.lang.String" value="Informatika"/>
           </Properties>
         </Component>
         <Component class="java.awt.Button" name="button6">
           <Properties>
-            <Property name="label" type="java.lang.String" value="button6"/>
+            <Property name="label" type="java.lang.String" value="Hobbi"/>
           </Properties>
         </Component>
         <Component class="java.awt.Button" name="button7">
           <Properties>
-            <Property name="label" type="java.lang.String" value="button7"/>
+            <Property name="label" type="java.lang.String" value="K&#xe9;preg&#xe9;ny"/>
           </Properties>
         </Component>
         <Component class="java.awt.Button" name="button8">
           <Properties>
-            <Property name="label" type="java.lang.String" value="button8"/>
+            <Property name="label" type="java.lang.String" value="Asztrol&#xf3;gia"/>
           </Properties>
         </Component>
         <Component class="java.awt.Button" name="button9">
           <Properties>
-            <Property name="label" type="java.lang.String" value="button9"/>
+            <Property name="label" type="java.lang.String" value="M&#x171;szaki"/>
           </Properties>
         </Component>
         <Component class="java.awt.Button" name="button10">
           <Properties>
-            <Property name="label" type="java.lang.String" value="button10"/>
+            <Property name="label" type="java.lang.String" value="Sport"/>
           </Properties>
         </Component>
         <Component class="java.awt.Button" name="button11">
           <Properties>
-            <Property name="label" type="java.lang.String" value="button11"/>
+            <Property name="label" type="java.lang.String" value="Tank&#xf6;nyv"/>
           </Properties>
         </Component>
         <Component class="java.awt.Button" name="button12">
           <Properties>
-            <Property name="label" type="java.lang.String" value="button12"/>
+            <Property name="label" type="java.lang.String" value="Vall&#xe1;si"/>
           </Properties>
         </Component>
       </SubComponents>
