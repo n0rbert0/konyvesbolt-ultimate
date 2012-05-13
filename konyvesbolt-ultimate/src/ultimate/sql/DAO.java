@@ -952,13 +952,13 @@ public class DAO {
 		pst = conn.prepareStatement(SQL_maxKonyvIsbn);
                         
 		ResultSet rs = pst.executeQuery();
-                
 		if(rs.next()){
                     max = rs.getInt("max");
 		}
                 
 	} catch (SQLException e) {
 		System.err.println("Nem jött létre az SQL kapcsolat!");
+                maxKonyvIsbn();
 	} finally {
 		try {
                     if(pst != null)
