@@ -82,6 +82,12 @@ public class DAO {
                 "select * from konyv,mufaj,szerzo " + ""
                 + "where konyv.isbn=mufaj.isbn AND konyv.isbn=szerzo.isbn AND "
                 + "(cim LIKE ? OR mufaj LIKE ? OR szerzo LIKE ?)";
+    private static final String SQL_updateFelhasznalo = 
+                "UPDATE felhasznalo SET f_nev=?, pass=?, e_mail=?, teljesnev=?,"
+                + " jog=? WHERE f_id=?";
+    private static final String SQL_updateLakcim = 
+                "UPDATE lakcim SET ir_szam=?, varos=?, utca=?, hazszam=?"
+              + "WHERE f_id=?";
     
   String url = "jdbc:oracle:thin:@//localhost:1521/xe";
   
@@ -1058,7 +1064,7 @@ public class DAO {
   }
   
   
-  public boolean belepes(String f_nev, String pass){
+  public Felhasznalo belepes(String f_nev, String pass){
       
     Connection conn = null;
     PreparedStatement pst = null;
@@ -1080,9 +1086,18 @@ public class DAO {
                 ResultSet rs = pst.executeQuery(); 
                 
                 if (rs.next()){
-                       adatok[0] = rs.getString("f_nev"); 
-                       adatok[1] = rs.getString("pass");
-                       return true;
+                        Felhasznalo f = new Felhasznalo();  
+                            f.setF_id(rs.getInt("f_id"));
+                            f.setF_nev(rs.getString("f_nev"));
+                            f.setPass(rs.getString("pass"));
+                            f.setEmail(rs.getString("e_mail"));
+                            f.setTeljesnev(rs.getString("teljesnev"));
+                            f.setJog(rs.getInt("jog"));
+                            f.setIrSzam(Integer.parseInt(getLakcim(rs.getInt("f_id"),1)));
+                            f.setVaros(getLakcim(rs.getInt("f_id"),2));
+                            f.setUtca(getLakcim(rs.getInt("f_id"),3));
+                            f.setHazszam(Integer.parseInt(getLakcim(rs.getInt("f_id"),4)));
+                        return f; 
                 }       
                     
 	} catch (SQLException e) {
@@ -1102,7 +1117,7 @@ public class DAO {
 		}
 	}
     
-        return false;
+        return null;
         
   }
   
@@ -1163,6 +1178,103 @@ public class DAO {
         
   }
   
+  public boolean updateFelhasznalo(Felhasznalo f) {
+
+    Connection conn = null;
+    PreparedStatement pst = null;
+	try {
+            try {
+        	conn = DriverManager.getConnection(url,"root","root");
+            } catch (SQLException e) {
+		System.err.println("Nem jött létre az SQL kapcsolat!");
+            }   
+            
+                //felhasznalo tabla feltoltese
+		pst = conn.prepareStatement(SQL_updateFelhasznalo);
+                       
+		int index = 1;
+                       
+		pst.setString(index++, f.getF_nev());
+                pst.setString(index++, f.getPass());
+                pst.setString(index++, f.getEmail());
+                pst.setString(index++, f.getTeljesnev());
+                pst.setInt(index++, f.getJog());   
+                pst.setInt(index++, f.getF_id());
+                
+                //mivel nem akarom külön metódust meghívni a
+                //lakcim tabla feltoltesere ezert itt csinalom
+                
+                //lakcim tabla feltoltese
+                updateLakcim(f.getF_id(), f.getIrSzam(), f.getVaros(), f.getUtca(), f.getHazszam());
+                
+		pst.executeUpdate();
+                       
+	} catch (SQLException e) {
+                //System.err.println("SQL injekciós hiba");
+                //return false;
+	} finally {
+
+            try {
+		if(pst != null)
+                    pst.close();
+            } catch (SQLException e) {
+		e.printStackTrace();
+            }
+            try {
+		if(conn != null)
+		conn.close();
+            } catch (SQLException e) {
+		System.err.println("Nem sikerült lezárni az SQL kapcsolatot!");
+            }
+	}
+        return true;
+    }
+  
+  public boolean updateLakcim(int f_id, int irSzam, String varos, String utca, int hazszam) {
+
+    Connection conn = null;
+    PreparedStatement pst = null;
+	try {
+            try {
+        	conn = DriverManager.getConnection(url,"root","root");
+            } catch (SQLException e) {
+		System.err.println("Nem jött létre az SQL kapcsolat!");
+            }   
+            
+                //felhasznalo tabla feltoltese
+		pst = conn.prepareStatement(SQL_updateLakcim);
+                       
+		int index = 1;
+                       
+		pst.setInt(index++, irSzam);
+                pst.setString(index++, varos);
+                pst.setString(index++, utca);
+                pst.setInt(index++, hazszam);
+                pst.setInt(index++, f_id);
+                                
+		pst.executeUpdate();
+                       
+	} catch (SQLException e) {
+                //System.err.println("SQL injekciós hiba");
+                //return false;
+	} finally {
+
+            try {
+		if(pst != null)
+                    pst.close();
+            } catch (SQLException e) {
+		e.printStackTrace();
+            }
+            try {
+		if(conn != null)
+		conn.close();
+            } catch (SQLException e) {
+		System.err.println("Nem sikerült lezárni az SQL kapcsolatot!");
+            }
+	}
+        return true;
+    }
+  
   //----------teszteleshez-----------
   public void testHozzaszolas(String hsz){
       
@@ -1219,6 +1331,31 @@ public class DAO {
             if(addFelhasznalo(f) == false) return false; //System.err.println("Nem sikerült hozza adni a felhasználót, valoszinuleg mar letezik ilyen!");
             else{
             addFelhasznalo(f);
+            return true;
+                    }
+      
+      //String test = getFelhasznalo().toString();
+      //System.out.println(test);
+      
+  }
+  
+    public boolean testUpdateFelhasznalo(int f_id, String f_nev, String pass, String email, String teljesnev, int jog, int irszam, String varos, String utca, int hazszam){
+      
+          Felhasznalo f = new Felhasznalo();
+          
+           f.setF_id(f_id);
+           f.setF_nev(f_nev);
+           f.setPass(pass);
+           f.setEmail(email);
+           f.setTeljesnev(teljesnev);
+           f.setJog(jog);
+           f.setIrSzam(irszam);
+           f.setVaros(varos);
+           f.setUtca(utca);
+           f.setHazszam(hazszam);
+            if(updateFelhasznalo(f) == false) return false; //System.err.println("Nem sikerült hozza adni a felhasználót, valoszinuleg mar letezik ilyen!");
+            else{
+            updateFelhasznalo(f);
             return true;
                     }
       

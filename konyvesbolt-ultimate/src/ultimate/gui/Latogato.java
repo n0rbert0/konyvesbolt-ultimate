@@ -7,6 +7,8 @@ package ultimate.gui;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import ultimate.sql.DAO;
 
 /**
  *
@@ -18,7 +20,7 @@ public class Latogato extends javax.swing.JPanel {
      * Creates new form Latogato
      */
     private JFrame foablak;
-    
+    private DAO dao = new DAO();
     
     public Latogato(JFrame foablak2) {
         foablak = foablak2;
@@ -65,22 +67,32 @@ public class Latogato extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(800, 600));
 
-        logingomb.setText("jButton2");
+        logingomb.setText("Bejelentkezés");
         logingomb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logingombActionPerformed(evt);
             }
         });
 
-        reggomb.setText("jButton1");
+        reggomb.setText("Regisztráció");
+        reggomb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reggombActionPerformed(evt);
+            }
+        });
 
-        kereses.setText("jTextField2");
+        kereses.setText("Keresés...");
 
         pass.setText("jPasswordField1");
 
-        keresgomb.setText("jButton3");
+        keresgomb.setText("Keress!");
+        keresgomb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                keresgombActionPerformed(evt);
+            }
+        });
 
-        felhasz.setText("jTextField1");
+        felhasz.setText("Felhasználónév");
 
         label1.setAlignment(java.awt.Label.CENTER);
         label1.setText("Kategoriák");
@@ -159,7 +171,7 @@ public class Latogato extends javax.swing.JPanel {
                 .addComponent(button11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 116, Short.MAX_VALUE))
         );
 
         jTextArea1.setColumns(20);
@@ -225,32 +237,31 @@ public class Latogato extends javax.swing.JPanel {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addContainerGap(225, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(kereses, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                        .addComponent(kereses, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(keresgomb)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(42, 42, 42)
                         .addComponent(felhasz, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(2, 2, 2)
                         .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(logingomb)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(reggomb)))
-                .addContainerGap())
+                        .addComponent(logingomb)
+                        .addGap(18, 18, 18)
+                        .addComponent(reggomb))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(keresgomb)
+                    .addComponent(kereses, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(reggomb)
                     .addComponent(logingomb)
-                    .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(felhasz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(keresgomb)
-                    .addComponent(kereses, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -267,10 +278,48 @@ public class Latogato extends javax.swing.JPanel {
 
     private void logingombActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logingombActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
-        foablak.add(new Vasarlo());
+        if((!pass.getText().isEmpty()) && (!felhasz.getText().isEmpty()) ){
+    		if(dao.belepes(felhasz.getText(), pass.getText()) != null &&
+                   dao.belepes(felhasz.getText(), pass.getText()).getJog() == 2){
+                    setVisible(false);
+                    foablak.add(new Vasarlo(dao.belepes(felhasz.getText(), pass.getText())));
+                    JOptionPane.showMessageDialog(null,
+            		    "Sikeres bejelentkezés!",
+            		    "Információ",
+            		    JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(null,
+            		    "Hibás felhasználónév vagy jelszó!",
+            		    "Hiba",
+            		    JOptionPane.ERROR_MESSAGE);
+                }
+            }
         
     }//GEN-LAST:event_logingombActionPerformed
+
+    private void keresgombActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keresgombActionPerformed
+        // TODO add your handling code here:
+        if(keresgomb == evt.getSource()){
+            if((!kereses.getText().isEmpty()) && (dao.existsKonyv(kereses.getText()).size() != 0) ){
+                JOptionPane.showMessageDialog(null,
+            		    dao.existsKonyv(kereses.getText()).size() + "db könyvet találtam!\n" + dao.existsKonyv(kereses.getText()).toString() ,
+            		    "Információ",
+            		    JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(null,
+            		    "Nincs ilyen könyv!",
+            		    "Hiba",
+            		    JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_keresgombActionPerformed
+
+    private void reggombActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reggombActionPerformed
+        // TODO add your handling code here:
+        if(reggomb == evt.getSource()) {
+          new Regisztracio();
+        }
+    }//GEN-LAST:event_reggombActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button button1;

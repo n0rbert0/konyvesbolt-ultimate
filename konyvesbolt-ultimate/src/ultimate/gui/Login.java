@@ -77,7 +77,8 @@ public class Login extends JPanel implements ActionListener{
         }
         if(belepes == e.getSource()){
             if((!pass.getText().isEmpty()) && (!login.getText().isEmpty()) ){
-    		if(dao.belepes(login.getText(), pass.getText())){
+    		if(dao.belepes(login.getText(), pass.getText()) != null &&
+                   dao.belepes(login.getText(), pass.getText()).getJog() == 2){
                     JOptionPane.showMessageDialog(null,
             		    "Sikeres bejelentkezés!",
             		    "Információ",

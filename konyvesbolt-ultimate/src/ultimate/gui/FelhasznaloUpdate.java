@@ -30,15 +30,17 @@ import ultimate.sql.DAO;
  * @author Peták Norbert
  */
 
-public class Regisztracio extends JDialog implements ActionListener  {
+public class FelhasznaloUpdate extends JDialog implements ActionListener  {
 
 	private DAO dao = new DAO();
-	
+	private Felhasznalo f;
+        private JTextField fTipus_textfield = new JTextField();
 	private JTextField fNev_textfield = new JTextField();
 	private JPasswordField pass_textfield = new JPasswordField();
         private JTextField email_textfield = new JTextField();
         private JTextField tn_textfield = new JTextField();
         private JSpinner irSzam = new JSpinner();
+        private JSpinner sorszam = new JSpinner();
         private JTextField varos_textfield = new JTextField();
         private JTextField utca_textfield = new JTextField();
         private JSpinner hazSzam = new JSpinner();
@@ -46,10 +48,11 @@ public class Regisztracio extends JDialog implements ActionListener  {
 	private JButton ok = new JButton("Ok");
         private JButton cancel = new JButton("Cancel");
 
-    public Regisztracio() {
+    public FelhasznaloUpdate(Felhasznalo f) {
         //proba
         super();
-        this.setTitle("Regisztráció");
+        this.setTitle("Adatok módosítása");
+        this.f=f;
         
         JPanel settingPanel = createSettingPanel();//A beállításokat tartalmazó panel gyártása
         JPanel buttonPanel = createButtonPanel();//A gombokat tartalmazó panel gyártása
@@ -74,23 +77,45 @@ public class Regisztracio extends JDialog implements ActionListener  {
      private JPanel createSzemelyesAdatok(){ 
 
         JPanel szemelyesPanel = new JPanel();
-        szemelyesPanel.setLayout(new GridLayout(7,2));
+        szemelyesPanel.setLayout(new GridLayout(9,2));
         
         szemelyesPanel.add(new JLabel("Személyes adatok"));
         szemelyesPanel.add(new JLabel(""));
         
         szemelyesPanel.add(new JSeparator());
         szemelyesPanel.add(new JSeparator());
+        
+        szemelyesPanel.add(new JLabel("  Felhasználó sorszám:"));
+        sorszam.setValue(f.getF_id());
+        sorszam.setEnabled(false);
+        szemelyesPanel.add(sorszam);
+        
+        szemelyesPanel.add(new JLabel("  Felhasználó típus:"));
+        if(f.getJog()==1){
+           fTipus_textfield.setText("Admin");
+           fTipus_textfield.setEnabled(false);
+           szemelyesPanel.add(fTipus_textfield);      
+        }else{
+           fTipus_textfield.setText("Általános felhasználó");
+           fTipus_textfield.setEnabled(false);
+           szemelyesPanel.add(fTipus_textfield);
+        }
+        
         szemelyesPanel.add(new JLabel("  Felhasználó név:"));
+        fNev_textfield.setText(f.getF_nev());
+        fNev_textfield.setEnabled(false);
     	szemelyesPanel.add(fNev_textfield);
     	
     	szemelyesPanel.add(new JLabel("  Jelszó:"));
+        pass_textfield.setText(f.getPass());
     	szemelyesPanel.add(pass_textfield);
     	
     	szemelyesPanel.add(new JLabel("  Email:"));
+        email_textfield.setText(f.getEmail());
     	szemelyesPanel.add(email_textfield);
     	
     	szemelyesPanel.add(new JLabel("  Teljes név:"));
+        tn_textfield.setText(f.getTeljesnev());
     	szemelyesPanel.add(tn_textfield);
         
         return szemelyesPanel;
@@ -107,15 +132,19 @@ public class Regisztracio extends JDialog implements ActionListener  {
         szallitasiAdatok.add(new JSeparator());
         
         szallitasiAdatok.add(new JLabel("  Irányítószám:"));
+        irSzam.setValue(f.getIrSzam());
         szallitasiAdatok.add(irSzam);
         
         szallitasiAdatok.add(new JLabel("  Város"));
+        varos_textfield.setText(f.getVaros());
     	szallitasiAdatok.add(varos_textfield);
         
         szallitasiAdatok.add(new JLabel("  Utca"));
+        utca_textfield.setText(f.getUtca());
     	szallitasiAdatok.add(utca_textfield);
         
         szallitasiAdatok.add(new JLabel("  Házszám"));
+        hazSzam.setValue(f.getHazszam());
         szallitasiAdatok.add(hazSzam);
 
         return szallitasiAdatok;
@@ -150,13 +179,6 @@ public class Regisztracio extends JDialog implements ActionListener  {
         //Ha az ok gombot nyomták meg, akkor megpróbáljuk felvenni az ügyfelet
     	if(ok == e.getSource()) {
         	//Ha nem adtak meg nevet akkor egy hibaüzenetet írunk ki egy error dialogra(JOptionPane.ERROR_MESSAGE)
-    		if(fNev_textfield.getText().isEmpty()){
-    			JOptionPane.showMessageDialog(null,
-            		    "Felhasználó név megadása kötelező!",
-            		    "Hiba",
-            		    JOptionPane.ERROR_MESSAGE);
-    			return;
-    		}
     		if(pass_textfield.getText().isEmpty()){
     			JOptionPane.showMessageDialog(null,
             		    "Jelszó megadása kötelező!",
@@ -213,82 +235,36 @@ public class Regisztracio extends JDialog implements ActionListener  {
             		    JOptionPane.ERROR_MESSAGE);
     			return;
                 }
-                if(dao.belepes(fNev_textfield.getText(),pass_textfield.getText()) != null){
+                /*if(dao.belepes(fNev_textfield.getText(),pass_textfield.getText()) != null){
                     JOptionPane.showMessageDialog(null,
-            		    "Ilyen felhasználónév már létezik!\n Kérlek válassz másikat.",
+            		    "Helytelen jelszó!\n Kérlek válassz másikat.",
             		    "Hiba",
             		    JOptionPane.ERROR_MESSAGE);
     			return;
-                }
+                }*/
         	
-             if(!dao.testFelhasznalo(fNev_textfield.getText(), pass_textfield.getText(),
-                     email_textfield.getText(), tn_textfield.getText(), 2,
-                     (Integer)irSzam.getValue(), varos_textfield.getText(), utca_textfield.getText(),
-                     (Integer)hazSzam.getValue()))
+                Felhasznalo felhasznalo = new Felhasznalo();
+                felhasznalo.setF_id((Integer)sorszam.getValue());
+                felhasznalo.setF_nev(fNev_textfield.getText());
+                felhasznalo.setPass(pass_textfield.getText());
+                felhasznalo.setEmail(email_textfield.getText());
+                felhasznalo.setTeljesnev(tn_textfield.getText());
+                felhasznalo.setJog(f.getJog());
+                felhasznalo.setIrSzam((Integer)irSzam.getValue());
+                felhasznalo.setVaros(varos_textfield.getText());
+                felhasznalo.setUtca(utca_textfield.getText());
+                felhasznalo.setHazszam((Integer)hazSzam.getValue());
+                
+             if(!dao.updateFelhasznalo(felhasznalo))
             	JOptionPane.showMessageDialog(null,
             		    "Váratlan hiba történt az adatbázis feltöltése közben!",
             		    "Hiba",
             		    JOptionPane.ERROR_MESSAGE);
             else {
-            	//Küldünk egy értesítő e-mailt a felhasználónak a sikeres felvételről
-            	//Ehhez a javax.mail API-t haszáljuk, amely megvaósítása a mail.jar-ban található
-            	//Mivel az e-mail küldés sokáig eltarthat, egy külön szálon indítjuk, a háttérben
-            	if (!email_textfield.getText().isEmpty()) {
-	            	Thread senMailThread = new Thread(new Runnable() {
-	
-						@Override
-						public void run() {
-							//SMTP kapcsolódási paraméterek
-							String host = "smtp.gmail.com";
-							int port = 465;
-							String username = "konyvesbolt.ultimate";
-							String password = "konyvesbolt.pass";
-					 
-							Properties props = new Properties();
-							props.put("mail.smtps.auth", "true");
-					 
-							Session session = Session.getInstance(props);
-							try {
-								//Egy új e-mail üzenetet ábrázoló osztály
-							    Message msg = new MimeMessage(session);
-							    //Beállítjuk az e-mail feladóját
-							    msg.setFrom(new InternetAddress("konyvesbolt.ultimate@gmail.com"));
-								//Megadjuk az új ügyfél e-mail címét a levél címzettjeként
-								msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email_textfield.getText()));
-								//Beállítjuk a levél tárgyát
-								msg.setSubject("Konyvesbolt-ultiamte regisztrációs e-mail");
-								//Illetve a levél tartalmát
-								msg.setContent("Kedves " + tn_textfield.getText() + 
-										",\nMostantól tagja vagy a Könyvesbolt-ultimate közösségének...\n\nKönyvesbolt-ultimate Team", "text/plain");
-														  
-								Transport t = session.getTransport("smtps");
-                                try {
-                                    t.connect(InetAddress.getByName(host).getCanonicalHostName(), port, username, password);
-                                } catch (UnknownHostException ex) {
-                                    Logger.getLogger(Regisztracio.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-								//Elküldjük az üzenetet a property-ben megadott szerver segítségével
-								t.sendMessage(msg, msg.getAllRecipients());
-								t.close();
-								JOptionPane.showMessageDialog(null,
-                                                                    "Regisztrációs email elküldve!",
-                                                                    "Információ",
-                                                                    JOptionPane.INFORMATION_MESSAGE);
-                        				} catch (NoSuchProviderException e) {
-								JOptionPane.showMessageDialog(null,
-                                                                    "Regisztrációs email-t nem sikerült elküldeni!\n Valószínűleg rossz email címet adtál meg.",
-                                                                    "Hiba",
-                                                                    JOptionPane.ERROR_MESSAGE);
-							} catch (MessagingException e) {
-								// Konzolon meg fog jelenni a stack trace, ha nem sikerül a küldés
-								e.printStackTrace();				 
-							}
-						}            		
-	            	});
-	            	
-	            	//Elindítjuk a szálat, amely a run metódust egy külön szálon végrehajtva elküldi az e-mailt
-	            	senMailThread.start();
-            	}
+            	JOptionPane.showMessageDialog(null,
+            		    "Sikeres adatmódosítás!",
+            		    "Információ",
+            		    JOptionPane.INFORMATION_MESSAGE);
             	setVisible(false);
             }
         }
