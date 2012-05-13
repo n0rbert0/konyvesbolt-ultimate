@@ -60,6 +60,12 @@ public class Center extends JPanel{
         add(fal);
     }
     
+    public void kosar()
+    {
+    
+    
+    }
+    
     
     private class konyvleiras extends TopList{
     
@@ -98,6 +104,5 @@ public class Center extends JPanel{
         }
     
     }
-    
-    private class kosar extends JPanel{}
+        
 }

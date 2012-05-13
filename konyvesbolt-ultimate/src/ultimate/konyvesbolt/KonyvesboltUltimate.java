@@ -5,6 +5,7 @@
  */
 package ultimate.konyvesbolt;
 
+import java.awt.Dimension;
 import ultimate.sql.*;
 import ultimate.gui.*;
 import java.io.*;
@@ -12,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import javax.swing.JFrame;
 
 /**
  *
@@ -27,9 +29,14 @@ public class KonyvesboltUltimate {
         
       BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
       DAO con = new DAO();
-      MainWindow ablak = new MainWindow();
-      ablak.startGUI();
-     //new KonyvFelvetel();
+      
+      JFrame foablak = new JFrame();
+      
+      foablak.add(new Latogato());
+      foablak.setPreferredSize(new Dimension(800,600));
+      foablak.setMinimumSize(new Dimension(800,600));
+      foablak.setVisible(true);
+     
       
       int menu = 0;
       String param[];
