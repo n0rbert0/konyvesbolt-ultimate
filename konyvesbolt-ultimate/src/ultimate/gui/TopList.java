@@ -5,6 +5,8 @@
 package ultimate.gui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -25,12 +27,18 @@ import ultimate.sql.DAO;
  *
  * @author lorda
  */
-public class TopList extends JPanel {
+public class TopList extends JPanel implements ActionListener {
     
-    protected int m_db;
+    protected int m_db,i=1;
     protected Dimension meret;
     protected int kepx, kepy;
     protected int keretx, kerety;
+    
+    private Map<Integer, JButton> gombMap = new HashMap<Integer, JButton>();
+    private Map<Integer, String> kep = new HashMap<Integer, String>();
+    private Map<Integer, String> cim = new HashMap<Integer, String>();
+    private Map<Integer, String> szerzo = new HashMap<Integer, String>();
+    private Map<Integer, String> leiras = new HashMap<Integer, String>();
         
     public TopList() {
          init(6, new Dimension(300,1000), 75, 100, 300, 97);   
@@ -48,6 +56,7 @@ public class TopList extends JPanel {
         removeAll();            
         JPanel fal = new JPanel();        
         fal.setPreferredSize(meret);
+        gombMap.clear();
         for(int i=0; i<m_db; i++)
         fal.add(Lista());
         add(fal);
@@ -60,30 +69,30 @@ public class TopList extends JPanel {
         JButton gomb = new JButton();
         Random generator = new Random();       
         Map<Integer, Konyv> konyv;
-        DAO dao = new DAO();
+        DAO dao = new DAO();       
         
         konyv = dao.getKonyv();
         
         int random = generator.nextInt( dao.maxKonyvIsbn() ) + 1;
-             
-        String kep;
-        String cim;
-        String szerzo;
+
+        kep.put(i,konyv.get(random).getKep());
+        cim.put(i,konyv.get(random).getCim());
+        szerzo.put(i,konyv.get(random).getSzerzo());
+        leiras.put(i,konyv.get(random).getLeiras());
         
-        kep = konyv.get(random).getKep();
-        cim = konyv.get(random).getCim();
-        szerzo = konyv.get(random).getSzerzo();
-        
-        gomb.add(LoadImage(kep,kepx,kepy));
+        gomb.add(LoadImage(kep.get(i),kepx,kepy));
+        gomb.addActionListener(this);
         label.setBorder(LineBorder.createBlackLineBorder());
         label.setPreferredSize(new Dimension(keretx,kerety));
         label.add(gomb, BorderLayout.WEST);
         
-        JTextArea text = new JTextArea(cim + "\n"
-                + szerzo);
+        JTextArea text = new JTextArea(cim.get(i) + "\n" + szerzo.get(i));
         text.setEnabled(false);
         label.add (text, BorderLayout.CENTER);
         
+        gombMap.put(i,gomb);
+        
+        i++;
         return label;
     }
     
@@ -112,5 +121,19 @@ public class TopList extends JPanel {
         graphics2D.dispose();
  
         return bufferedImage;
+    }
+    
+      @Override
+    public void actionPerformed(ActionEvent e) {
+          for(i=1;i<=m_db;i++)
+            if(gombMap.get(i) == e.getSource()){
+                System.out.println(kep.get(i) + " - " +
+                           cim.get(i) + " - " +
+                           szerzo.get(i) + " - " +
+                           leiras.get(i));
+             //itt kellene meghívni egy olyan függvényt, ami
+             //a könyv paramétereit várja és megjeleníti nagyban
+            }
+                
     }
 }
