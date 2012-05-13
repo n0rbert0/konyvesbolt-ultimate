@@ -289,6 +289,12 @@ public class Latogato extends javax.swing.JPanel {
             		    "Sikeres bejelentkezés!",
             		    "Információ",
             		    JOptionPane.INFORMATION_MESSAGE);
+                }else if(dao.belepes(felhasz.getText(), pass.getText()) != null &&
+                   dao.belepes(felhasz.getText(), pass.getText()).getJog() == 1){
+                    JOptionPane.showMessageDialog(null,
+            		    "Még nincs kész az admin felület!\nTürelem...",
+            		    "Hiba",
+            		    JOptionPane.ERROR_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(null,
             		    "Hibás felhasználónév vagy jelszó!",
