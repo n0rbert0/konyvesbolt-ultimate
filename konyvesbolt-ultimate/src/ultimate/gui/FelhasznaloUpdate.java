@@ -200,9 +200,9 @@ public class FelhasznaloUpdate extends JDialog implements ActionListener  {
             		    JOptionPane.ERROR_MESSAGE);
     			return;
     		}
-                if(irSzam.getValue() == null){
+                if((Integer)irSzam.getValue() > 9999 || 0 >= (Integer)irSzam.getValue() ){
     			JOptionPane.showMessageDialog(null,
-            		    "Irányítószám megadása kötelező!",
+            		    "Irányítószám helytelen!",
             		    "Hiba",
             		    JOptionPane.ERROR_MESSAGE);
     			return;
@@ -221,9 +221,9 @@ public class FelhasznaloUpdate extends JDialog implements ActionListener  {
             		    JOptionPane.ERROR_MESSAGE);
     			return;
     		}
-                if(hazSzam.getValue() == null){
+                if((Integer)hazSzam.getValue() > 9999 || 0 >= (Integer)hazSzam.getValue() ){
     			JOptionPane.showMessageDialog(null,
-            		    "Irányítószám megadása kötelező!",
+            		    "Házszám helytelen!",
             		    "Hiba",
             		    JOptionPane.ERROR_MESSAGE);
     			return;
