@@ -402,8 +402,9 @@ private void feltoltes(){
         leiras.put(i,konyv.get(random).getLeiras());
         
         jButton1.setText(szerzo.get(i) + " - " + cim.get(i));
+        jTextArea1.setLineWrap(true);
         jTextArea1.setText(leiras.get(i));
-        
+                
         i++;
         random = generator.nextInt( dao.maxKonyvIsbn() ) + 1;
         kep.put(i,konyv.get(random).getKep());
@@ -412,6 +413,7 @@ private void feltoltes(){
         leiras.put(i,konyv.get(random).getLeiras());
         
         jButton2.setText(szerzo.get(i) + " - " + cim.get(i));
+        jTextArea2.setLineWrap(true);
         jTextArea2.setText(leiras.get(i));
         
         i++;
@@ -422,6 +424,7 @@ private void feltoltes(){
         leiras.put(i,konyv.get(random).getLeiras());
         
         jButton3.setText(szerzo.get(i) + " - " + cim.get(i));
+        jTextArea3.setLineWrap(true);
         jTextArea3.setText(leiras.get(i));
         
         i++;
@@ -432,6 +435,7 @@ private void feltoltes(){
         leiras.put(i,konyv.get(random).getLeiras());
         
         jButton4.setText(szerzo.get(i) + " - " + cim.get(i));
+        jTextArea4.setLineWrap(true);
         jTextArea4.setText(leiras.get(i));
         
         i++;
@@ -442,6 +446,7 @@ private void feltoltes(){
         leiras.put(i,konyv.get(random).getLeiras());
         
         jButton5.setText(szerzo.get(i) + " - " + cim.get(i));
+        jTextArea5.setLineWrap(true);
         jTextArea5.setText(leiras.get(i));
         
         i++;
@@ -452,6 +457,7 @@ private void feltoltes(){
         leiras.put(i,konyv.get(random).getLeiras());
         
         jButton6.setText(szerzo.get(i) + " - " + cim.get(i));
+        jTextArea6.setLineWrap(true);
         jTextArea6.setText(leiras.get(i));
         
         
