@@ -30,18 +30,21 @@
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="225" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="215" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="kereses" pref="248" max="32767" attributes="0"/>
+                      <Component id="kereses" pref="256" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="keresgomb" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
-                      <Component id="udvozlo" min="-2" pref="226" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
+                      <Component id="udvozlo" min="-2" pref="190" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="beallitGomb" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="kilep" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -54,6 +57,7 @@
                   <Component id="kereses" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="beallitGomb" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="udvozlo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="kilep" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
@@ -319,6 +323,15 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="jLabel1"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="kilep">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Kil&#xe9;p&#xe9;s"/>
+        <Property name="actionCommand" type="java.lang.String" value="Kil&#xe9;p&#xe9;s"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="kilepActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -26,6 +26,8 @@ public class Latogato extends javax.swing.JPanel {
         foablak = foablak2;
         initComponents();        
     }
+    
+   // public Latogato(){this.setVisible(true); initComponents();}
 
     /**
      * This method is called from within the constructor to initialize the form.

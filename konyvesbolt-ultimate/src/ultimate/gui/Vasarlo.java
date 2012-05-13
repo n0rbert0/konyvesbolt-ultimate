@@ -6,6 +6,8 @@ package ultimate.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Frame;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import ultimate.konyvesbolt.Felhasznalo;
 import ultimate.sql.DAO;
@@ -62,6 +64,7 @@ public class Vasarlo extends javax.swing.JPanel {
         kereses = new javax.swing.JTextField();
         keresgomb = new javax.swing.JButton();
         udvozlo = new javax.swing.JLabel();
+        kilep = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(800, 600));
 
@@ -213,6 +216,14 @@ public class Vasarlo extends javax.swing.JPanel {
 
         udvozlo.setText("jLabel1");
 
+        kilep.setText("Kilépés");
+        kilep.setActionCommand("Kilépés");
+        kilep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kilepActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -226,15 +237,18 @@ public class Vasarlo extends javax.swing.JPanel {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(225, Short.MAX_VALUE))
+                        .addGap(0, 215, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(kereses, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                        .addComponent(kereses, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(keresgomb)
-                        .addGap(120, 120, 120)
-                        .addComponent(udvozlo, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
-                        .addComponent(beallitGomb))))
+                        .addGap(73, 73, 73)
+                        .addComponent(udvozlo, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(beallitGomb)
+                        .addGap(28, 28, 28)
+                        .addComponent(kilep)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,7 +258,8 @@ public class Vasarlo extends javax.swing.JPanel {
                     .addComponent(keresgomb)
                     .addComponent(kereses, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(beallitGomb)
-                    .addComponent(udvozlo))
+                    .addComponent(udvozlo)
+                    .addComponent(kilep))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -282,6 +297,10 @@ public class Vasarlo extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_keresgombActionPerformed
 
+    private void kilepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kilepActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kilepActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton beallitGomb;
     private java.awt.Button button1;
@@ -307,6 +326,7 @@ public class Vasarlo extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField kereses;
     private javax.swing.JButton keresgomb;
+    private javax.swing.JButton kilep;
     private java.awt.Label label1;
     private javax.swing.JLabel udvozlo;
     // End of variables declaration//GEN-END:variables

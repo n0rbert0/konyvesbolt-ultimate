@@ -265,7 +265,6 @@ public class FelhasznaloUpdate extends JDialog implements ActionListener  {
             		    "Sikeres adatmódosítás!",
             		    "Információ",
             		    JOptionPane.INFORMATION_MESSAGE);
-            	setVisible(false);
             }
         }
         else if(cancel == e.getSource())
