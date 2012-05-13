@@ -35,8 +35,8 @@ public class KonyvesboltUltimate {
       
       foablak.add(new Latogato(foablak));
       foablak.setTitle("Könyvesbolt-ultimate");
-      foablak.setPreferredSize(new Dimension(800,600));
-      foablak.setMinimumSize(new Dimension(800,600));
+      foablak.setPreferredSize(new Dimension(1000,600));
+      foablak.setMinimumSize(new Dimension(100,600));
       foablak.setLocationRelativeTo(null); 
       foablak.setVisible(true);
       
