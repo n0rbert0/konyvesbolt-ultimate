@@ -31,6 +31,7 @@ public class KonyvesboltUltimate {
       DAO con = new DAO();
       
       JFrame foablak = new JFrame();
+      foablak.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       
       foablak.add(new Latogato(foablak));
       foablak.setTitle("Könyvesbolt-ultimate");
