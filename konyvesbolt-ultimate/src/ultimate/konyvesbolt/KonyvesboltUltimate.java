@@ -32,7 +32,7 @@ public class KonyvesboltUltimate {
       
       JFrame foablak = new JFrame();
       
-      foablak.add(new Latogato());
+      foablak.add(new Latogato(foablak));
       foablak.setPreferredSize(new Dimension(800,600));
       foablak.setMinimumSize(new Dimension(800,600));
       foablak.setVisible(true);

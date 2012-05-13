@@ -4,6 +4,8 @@
  */
 package ultimate.gui;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author lorda
@@ -13,8 +15,12 @@ public class Latogato extends javax.swing.JPanel {
     /**
      * Creates new form Latogato
      */
-    public Latogato() {
-        initComponents();
+    private JFrame foablak;
+    
+    
+    public Latogato(JFrame foablak2) {
+        foablak = foablak2;
+        initComponents();        
     }
 
     /**
@@ -50,6 +56,11 @@ public class Latogato extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(800, 600));
 
         jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("jButton1");
 
@@ -181,6 +192,14 @@ public class Latogato extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        foablak.add(new Vasarlo());
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button button1;
     private java.awt.Button button10;
