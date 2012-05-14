@@ -956,7 +956,7 @@ public class DAO {
                     max = rs.getInt("max");
 		}
                 
-	} catch (SQLException e) {
+	} catch (Exception e) {
 		System.err.println("Nem jött létre az SQL kapcsolat!");
                 maxKonyvIsbn();
 	} finally {
